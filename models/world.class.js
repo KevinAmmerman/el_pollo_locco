@@ -12,11 +12,24 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
+        this.checkCollisions();
     }
 
 
     setWorld() {
         this.character.world = this;
+    }
+
+
+    checkCollisions() {
+        setInterval(() => {
+            this.level.enemies.forEach(enemy => {
+                if (this.character.isCollidingOld(enemy) && this.character.energy > 0) {
+                    this.character.hit();
+                    console.log('Collision with Character', this.character.energy);
+                }
+            });
+        }, 200);
     }
 
 
@@ -64,7 +77,7 @@ class World {
         mo.x = mo.x * -1;
     }
 
-    
+
     mirrowImageReset(mo) {
         mo.x = mo.x * -1;
         this.ctx.restore();

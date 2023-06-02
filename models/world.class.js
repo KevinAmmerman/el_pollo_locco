@@ -14,9 +14,11 @@ class World {
         this.setWorld();
     }
 
+
     setWorld() {
         this.character.world = this;
     }
+
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // clears the canvas before draw new objects.
@@ -33,23 +35,27 @@ class World {
         });
     }
 
+
     addObjectsToMap(object) {
         object.forEach(o => {
             this.addToMap(o);
         });
     }
 
+
     addToMap(mo) {
         if (mo.otherDirection) {
             this.mirrowImage(mo);
         }
 
-        this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
+        mo.draw(this.ctx);
+        mo.drawFrame(this.ctx);
 
         if (mo.otherDirection) {
             this.mirrowImageReset(mo);
         }
     }
+
 
     mirrowImage(mo) {
         this.ctx.save();
@@ -58,6 +64,7 @@ class World {
         mo.x = mo.x * -1;
     }
 
+    
     mirrowImageReset(mo) {
         mo.x = mo.x * -1;
         this.ctx.restore();

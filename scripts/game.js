@@ -7,6 +7,7 @@ function init() {
     world = new World(canvas, keyboard);
 }
 
+
 window.addEventListener('keydown', (e) => {
     if (e.keyCode == 38) {
         keyboard.UP = true;
@@ -24,6 +25,7 @@ window.addEventListener('keydown', (e) => {
         keyboard.SPACE = true;
     }
 });
+
 
 window.addEventListener('keyup', (e) => {
     if (e.keyCode == 38) {

@@ -7,22 +7,23 @@ class Chicken extends MovableObject {
         'img/3_enemies_chicken/chicken_normal/1_walk/2_w.png',
         'img/3_enemies_chicken/chicken_normal/1_walk/3_w.png'
     ];
+    chicken_sound = new Audio('audio/chicken.mp3');
     
     constructor() {
         super().loadImage('img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
-        this.x = 200 + Math.random() * 500;
-        this.speed = 0.15 + Math.random() * 0.25;
-        this.loadImages(this.IMAGES_WALKING);
-        this.animate();
+        this.x = 200 + Math.random() * 500; // gives out a random x position for each chicken
+        this.speed = 0.15 + Math.random() * 0.25; // gives out a random speed for each chicken
+        this.loadImages(this.IMAGES_WALKING); // loads the image pathes into an JSON
+        this.animate(); 
     }
 
+    
     animate()  {
-        this.moveLeft();
         setInterval(() => {
-            let i = this.currentImage % this.IMAGES_WALKING.length;
-            let path = this.IMAGES_WALKING[i];
-            this.img = this.imageCache[path];
-            this.currentImage++;
+            this.moveLeft(); // lets the chicken move to the left
+        }, 1000 / 60);
+        setInterval(() => {
+            this.playAnimation(this.IMAGES_WALKING);
         }, 200);
     }
 }

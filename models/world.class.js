@@ -1,6 +1,7 @@
 class World {
     character = new Character();
     level = level1;
+    statusBar = new StatusBar();
     ctx;
     canvas;
     keyboard;
@@ -18,6 +19,8 @@ class World {
 
     setWorld() {
         this.character.world = this;
+        this.statusBar.world = this;
+        // console.log(this.statusBar)
     }
 
 
@@ -26,7 +29,7 @@ class World {
             this.level.enemies.forEach(enemy => {
                 if (this.character.isCollidingOld(enemy) && this.character.energy > 0) {
                     this.character.hit();
-                    console.log('Collision with Character', this.character.energy);
+                    this.statusBar.setPercentage(this.character.energy);
                 }
             });
         }, 200);
@@ -37,6 +40,13 @@ class World {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // clears the canvas before draw new objects.
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.backgroundObjects);
+
+        this.ctx.translate(-this.camera_x, 0);
+        // Space for non movable objects ------------------
+
+        this.addToMap(this.statusBar);
+        this.ctx.translate(this.camera_x, 0);
+
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.clouds);
         this.addToMap(this.character);

@@ -37,7 +37,7 @@ class World {
 
     throwBottle() {
         if (this.keyboard.SPACE && this.character.collectedBottles > 0) {
-            let bottle = new ThrowableObject(this.character.x +40, this.character.y +100);
+            let bottle = new ThrowableObject(this.character.x + 40, this.character.y + 100);
             this.throwableObject.push(bottle);
             this.character.collectedBottles--;
             this.bottleStatusBar.percentage--;
@@ -45,8 +45,10 @@ class World {
     }
 
     checkCollisionsWithEnemy() {
-        this.level.enemies.forEach(enemy => {
-            if (this.character.isCollidingOld(enemy) && this.character.energy > 0) {
+        this.level.enemies.forEach((enemy, index) => {
+            if (this.character.isCollidingOld(enemy) && this.character.isAboveGround()) {
+                this.level.enemies.splice(index, 1);
+            } else if (this.character.isCollidingOld(enemy) && this.character.energy > 0) {
                 this.character.hit();
                 this.statusBar.setPercentage(this.character.energy);
             }
@@ -56,7 +58,7 @@ class World {
     checkCollisionWithBottle() {
         this.level.bottles.forEach((bottle, index) => {
             if (this.character.isCollidingOld(bottle) && this.character.collectedBottles <= 10) {
-                this.level.bottles.splice(index,1);
+                this.level.bottles.splice(index, 1);
                 this.character.collectedBottles++;
                 this.bottleStatusBar.setPercentage(this.character.collectedBottles);
             }
@@ -66,7 +68,7 @@ class World {
     checkCollisionWithCoin() {
         this.level.coins.forEach((coin, index) => {
             if (this.character.isCollidingOld(coin)) {
-                this.level.coins.splice(index,1);
+                this.level.coins.splice(index, 1);
                 this.character.collectedCoins++;
                 this.coinStatusBar.setPercentage(this.character.collectedCoins);
             }

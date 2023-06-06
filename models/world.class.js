@@ -27,8 +27,9 @@ class World {
 
     run() {
         setInterval(() => {
-            this.checkCollisions();
+            this.checkCollisionsWithEnemy();
             this.checkCollisionWithBottle();
+            this.checkCollisionWithCoin();
             this.throwBottle();
             this.bottleStatusBar.setPercentage(this.bottleStatusBar.percentage);
         }, 200);
@@ -43,7 +44,7 @@ class World {
         }
     }
 
-    checkCollisions() {
+    checkCollisionsWithEnemy() {
         this.level.enemies.forEach(enemy => {
             if (this.character.isCollidingOld(enemy) && this.character.energy > 0) {
                 this.character.hit();
@@ -54,10 +55,20 @@ class World {
 
     checkCollisionWithBottle() {
         this.level.bottles.forEach((bottle, index) => {
-            if (this.character.isCollidingOld(bottle)) {
+            if (this.character.isCollidingOld(bottle) && this.character.collectedBottles <= 10) {
                 this.level.bottles.splice(index,1);
                 this.character.collectedBottles++;
                 this.bottleStatusBar.setPercentage(this.character.collectedBottles);
+            }
+        });
+    }
+
+    checkCollisionWithCoin() {
+        this.level.coins.forEach((coin, index) => {
+            if (this.character.isCollidingOld(coin)) {
+                this.level.coins.splice(index,1);
+                this.character.collectedCoins++;
+                this.coinStatusBar.setPercentage(this.character.collectedCoins);
             }
         });
     }

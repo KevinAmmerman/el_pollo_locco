@@ -5,6 +5,8 @@ class MovableObject extends DrawableObject {
     acceleration = 2.5;
     energy = 100;
     lastHit = 0;
+    collectedBottles = 0;
+    collectedCoins = 0;
 
     applyGravity() {
         setInterval(() => {
@@ -49,7 +51,11 @@ class MovableObject extends DrawableObject {
 
 
     isAboveGround() {
-        return this.y < 160;
+        if (this instanceof ThrowableObject) {
+            return true;
+        } else {
+            return this.y < 160;
+        }
     }
 
 

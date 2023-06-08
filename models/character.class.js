@@ -36,8 +36,13 @@ class Character extends MovableObject {
         'img/2_character_pepe/5_dead/D-56.png',
         'img/2_character_pepe/5_dead/D-57.png'
     ];
-    world; // variable with the world ass value
+    world;
     walking_sound = new Audio('audio/running.mp3');
+    jump_sound = new Audio('audio/jump.mp3');
+    throw_sound = new Audio('audio/throw.mp3');
+    bottle_sound = new Audio('audio/bottle.mp3');
+    breaking_glass_sound = new Audio('audio/glass.mp3');
+    hurt_sound = new Audio('audio/hurt.mp3');
 
     constructor() {
         super().loadImage('img/2_character_pepe/2_walk/W-21.png');
@@ -66,6 +71,7 @@ class Character extends MovableObject {
             }
             if (this.world.keyboard.UP && !this.isAboveGround()) {
                 this.jump();
+                this.jump_sound.play();
             }
             this.world.camera_x = -this.x +60;
         }, 1000 / 60);

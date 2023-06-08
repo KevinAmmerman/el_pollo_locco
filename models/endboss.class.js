@@ -2,7 +2,7 @@ class Endboss extends MovableObject {
     height = 400;
     width = 250;
     y = 50;
-    energy = 8;
+    energy = 6;
     IMAGES_WALKING = [
         'img/4_enemie_boss_chicken/1_walk/G1.png',
         'img/4_enemie_boss_chicken/1_walk/G2.png',
@@ -32,8 +32,8 @@ class Endboss extends MovableObject {
         setInterval(() => {
             this.playAnimation(this.IMAGES_WALKING);
         }, 200);
-        setInterval(() => {
-            this.enemyKill(this.energy, moveInterval, animateInterval, this.IMAGE_DEAD);
-        }, 200);
+        // setInterval(() => {
+        //     this.enemyKill(this.energy, moveInterval, animateInterval, this.IMAGE_DEAD);
+        // }, 200);
     }
 }

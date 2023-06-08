@@ -45,17 +45,6 @@ class World {
         }
     }
 
-    // checkCollisionsWithEnemy() {
-    //     this.level.enemies.forEach((enemy, index) => {
-    //         if (this.character.isCollidingOld(enemy) && this.character.isAboveGround() && this.character.speedY < 0) {
-    //             this.level.enemies.splice(index, 1);
-    //         } else if (this.character.isCollidingOld(enemy) && this.character.energy > 0) {
-    //             this.character.hit();
-    //             this.statusBar.setPercentage(this.character.energy);
-    //         }
-    //     });
-    // }
-
 
     checkCollisionsWithEnemy() {
         this.level.enemies.forEach((enemy, index) => {
@@ -63,20 +52,21 @@ class World {
                 enemy.energy--;
                 this.character.jump();
                 if (enemy.energy == 0) {
-                    // this.level.enemies.splice(index, 1);
-                    console.log(enemy.loadImage());
-                    this.killChicken(enemy);
+                    this.deleteEnemy(index);
                 }
             } 
-            if (this.character.isCollidingOld(enemy) && !this.character.isAboveGround() && this.character.energy > 0) {
+            if (this.character.isCollidingOld(enemy) && !this.character.isAboveGround() && this.character.energy > 0 && enemy.energy > 0) {
                 this.character.hit();
                 this.statusBar.setPercentage(this.character.energy);
             }
         });
     }
 
-    killChicken(enemy) {
-        enemy.loadImage(enemy.IMAGE_DEAD);
+
+    deleteEnemy(i) {
+        setTimeout(() => {
+            this.level.enemies.splice(i, 1);
+        }, 500);
     }
 
     checkCollisionWithBottle() {

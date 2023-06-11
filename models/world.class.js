@@ -33,7 +33,6 @@ class World {
             this.checkCollisionWithCoin();
             this.throwBottle();
             this.bottleStatusBar.setPercentage(this.bottleStatusBar.percentage);
-            // console.log(this.character.isOnGround(this.character.y));
         }, 100);
     }
 

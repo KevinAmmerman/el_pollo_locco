@@ -10,7 +10,7 @@ class World {
     keyboard;
     camera_x = 0;
     throwCooldown = 0;
-    throwDelay = 1000;
+    throwDelay = 1500;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -38,8 +38,6 @@ class World {
             }
             this.throwBottle();
             this.bottleStatusBar.setPercentage(this.bottleStatusBar.percentage);
-            // console.log(this.throwCooldown);
-            // console.log(this.character.collectedBottles);
         }, 100);
     }
 
@@ -62,6 +60,7 @@ class World {
                 this.character.jump();
                 if (enemy.energy == 0) {
                     this.deleteEnemy(enemy);
+                    this.chickenSound(enemy);
                 }
             }
             if (this.character.isCollidingOld(enemy) && !this.character.isAboveGround() && this.character.energy > 0 && enemy.energy > 0) {
@@ -78,14 +77,14 @@ class World {
                 this.throwableObject.forEach(bottle => {
                     if (bottle.isCollidingOld(enemy) && enemy.energy > 0) {
                         enemy.energy--;
-                        this.timeDelayedSound();
+                        this.breakingGlassSound();
                         this.deleteBottle(bottle);
                         if (enemy.energy == 0) {
                             this.deleteEnemy(enemy);
+                            this.chickenSound(enemy);
                         }
-                    }
-                    if (!bottle.isCollidingOld(enemy) && !bottle.isAboveGround()) {
-                        this.timeDelayedSound();
+                    } else if (!bottle.isCollidingOld(enemy) && !bottle.isAboveGround()) {
+                        this.breakingGlassSound();
                         this.deleteBottle(bottle);
                     }
                 });
@@ -93,8 +92,13 @@ class World {
         }
     }
 
-    timeDelayedSound() {
+    breakingGlassSound() {
         this.character.breaking_glass_sound.play();
+    }
+
+
+    chickenSound(enemy) {
+        enemy.chicken_sound.play();
     }
 
 
@@ -146,10 +150,10 @@ class World {
         this.addToMap(this.statusBar);
         this.ctx.translate(this.camera_x, 0);
 
-        this.addObjectsToMap(this.throwableObject);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.throwableObject);
         this.addToMap(this.character);
         this.ctx.translate(-this.camera_x, 0);
 

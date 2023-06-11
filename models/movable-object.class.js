@@ -7,6 +7,7 @@ class MovableObject extends DrawableObject {
     lastHit = 0;
     collectedBottles = 0;
     collectedCoins = 0;
+    chicken_sound = new Audio('audio/chicken.mp3');
 
     applyGravity() {
         setInterval(() => {

@@ -9,6 +9,8 @@ class World {
     canvas;
     keyboard;
     camera_x = 0;
+    throwCooldown = 0;
+    throwDelay = 1000;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -31,18 +33,24 @@ class World {
             this.checkCollisionOfBottleWithEnemy();
             this.checkCollisionWithBottle();
             this.checkCollisionWithCoin();
+            if (this.throwCooldown > 0) {
+                this.throwCooldown -= 100;
+            }
             this.throwBottle();
             this.bottleStatusBar.setPercentage(this.bottleStatusBar.percentage);
+            // console.log(this.throwCooldown);
+            // console.log(this.character.collectedBottles);
         }, 100);
     }
 
     throwBottle() {
-        if (this.keyboard.SPACE && this.character.collectedBottles > 0) {
+        if (this.keyboard.SPACE && this.character.collectedBottles > 0 && this.throwCooldown <= 0) {
             let bottle = new ThrowableObject(this.character.x + 40, this.character.y + 100);
             this.throwableObject.push(bottle);
             this.character.collectedBottles--;
             this.bottleStatusBar.percentage--;
             this.character.throw_sound.play();
+            this.throwCooldown = this.throwDelay;
         }
     }
 
@@ -70,14 +78,30 @@ class World {
                 this.throwableObject.forEach(bottle => {
                     if (bottle.isCollidingOld(enemy) && enemy.energy > 0) {
                         enemy.energy--;
-                        this.character.breaking_glass_sound.play();
+                        this.timeDelayedSound();
+                        this.deleteBottle(bottle);
                         if (enemy.energy == 0) {
                             this.deleteEnemy(enemy);
                         }
                     }
+                    if (!bottle.isCollidingOld(enemy) && !bottle.isAboveGround()) {
+                        this.timeDelayedSound();
+                        this.deleteBottle(bottle);
+                    }
                 });
             });
         }
+    }
+
+    timeDelayedSound() {
+        this.character.breaking_glass_sound.play();
+    }
+
+
+    deleteBottle(bottle) {
+        setTimeout(() => {
+            this.throwableObject.splice(this.throwableObject.indexOf(bottle));
+        }, 200);
     }
 
 

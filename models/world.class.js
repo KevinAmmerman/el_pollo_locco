@@ -31,8 +31,10 @@ class World {
         setInterval(() => {
             this.checkCollisionsWithEnemy();
             this.checkCollisionOfBottleWithEnemy();
-            this.checkCollisionWithBottle();
-            this.checkCollisionWithCoin();
+            // this.checkCollisionWithBottle();
+            // this.checkCollisionWithCoin();
+            this.checkCollisionWithCollectible(this.level.bottles, this.character, "collectedBottles", this.bottleStatusBar, this.character.bottle_sound);
+            this.checkCollisionWithCollectible(this.level.coins, this.character, "collectedCoins", this.coinStatusBar, this.character.coin_sound);
             if (this.throwCooldown > 0) {
                 this.throwCooldown -= 100;
             }
@@ -115,23 +117,36 @@ class World {
         }, 1000);
     }
 
-    checkCollisionWithBottle() {
-        this.level.bottles.forEach((bottle, index) => {
-            if (this.character.isCollidingOld(bottle) && this.character.collectedBottles <= 10) {
-                this.level.bottles.splice(index, 1);
-                this.character.collectedBottles++;
-                this.character.bottle_sound.play();
-                this.bottleStatusBar.setPercentage(this.character.collectedBottles);
-            }
-        });
-    }
+    // checkCollisionWithBottle() {
+    //     this.level.bottles.forEach((bottle, index) => {
+    //         if (this.character.isCollidingOld(bottle) && this.character.collectedBottles <= 10) {
+    //             this.level.bottles.splice(index, 1);
+    //             this.character.collectedBottles++;
+    //             this.character.bottle_sound.play();
+    //             this.bottleStatusBar.setPercentage(this.character.collectedBottles);
+    //         }
+    //     });
+    // }
 
-    checkCollisionWithCoin() {
-        this.level.coins.forEach((coin, index) => {
-            if (this.character.isCollidingOld(coin)) {
-                this.level.coins.splice(index, 1);
-                this.character.collectedCoins++;
-                this.coinStatusBar.setPercentage(this.character.collectedCoins);
+    // checkCollisionWithCoin() {
+    //     this.level.coins.forEach((coin, index) => {
+    //         if (this.character.isCollidingOld(coin)) {
+    //             this.level.coins.splice(index, 1);
+    //             this.character.collectedCoins++;
+    //             this.coinStatusBar.setPercentage(this.character.collectedCoins);
+    //         }
+    //     });
+    // }
+
+    checkCollisionWithCollectible(collectibles, character, countPropertyName, statusBar, sound) {
+        collectibles.forEach((collectible, index) => {
+            if (this.character.isCollidingOld(collectible)) {
+                collectibles.splice(index, 1);
+                character[countPropertyName]++;
+                statusBar.setPercentage(character[countPropertyName]);
+                if (sound) {
+                    sound.play();
+                }
             }
         });
     }

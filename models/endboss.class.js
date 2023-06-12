@@ -3,6 +3,8 @@ class Endboss extends MovableObject {
     width = 250;
     y = 50;
     energy = 5;
+    world;
+    speed = 1.5;
     IMAGES_WALKING = [
         'img/4_enemie_boss_chicken/1_walk/G1.png',
         'img/4_enemie_boss_chicken/1_walk/G2.png',
@@ -19,21 +21,69 @@ class Endboss extends MovableObject {
         'img/4_enemie_boss_chicken/2_alert/G11.png',
         'img/4_enemie_boss_chicken/2_alert/G12.png'
     ];
+    IMAGES_ATTACK = [
+        'img/4_enemie_boss_chicken/3_attack/G13.png',
+        'img/4_enemie_boss_chicken/3_attack/G14.png',
+        'img/4_enemie_boss_chicken/3_attack/G15.png',
+        'img/4_enemie_boss_chicken/3_attack/G16.png',
+        'img/4_enemie_boss_chicken/3_attack/G17.png',
+        'img/4_enemie_boss_chicken/3_attack/G18.png',
+        'img/4_enemie_boss_chicken/3_attack/G19.png',
+        'img/4_enemie_boss_chicken/3_attack/G20.png'
+    ];
+    IMAGES_HURT = [
+        'img/4_enemie_boss_chicken/4_hurt/G21.png',
+        'img/4_enemie_boss_chicken/4_hurt/G22.png',
+        'img/4_enemie_boss_chicken/4_hurt/G23.png'
+    ];
+    IMAGES_DEAD = [
+        'img/4_enemie_boss_chicken/5_dead/G24.png',
+        'img/4_enemie_boss_chicken/5_dead/G25.png',
+        'img/4_enemie_boss_chicken/5_dead/G26.png'
+    ];
 
     constructor() {
         super().loadImage('img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
         this.x = 2500;
         this.loadImages(this.IMAGES_WALKING);
-        this.animate(); 
+        this.loadImages(this.IMAGES_ALERT);
+        this.loadImages(this.IMAGES_ATTACK);
+        this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_DEAD);
+        setTimeout(() => {
+            this.animate();
+        }, 500); 
     }
 
-    animate()  {
-        this.moveLeft(); // lets the chicken move to the left
-        setInterval(() => {
-            this.playAnimation(this.IMAGES_WALKING);
+    animate() {
+        const moveInterval = setInterval(() => {
+            if ((2500 - this.world.character.x) < 700) {
+                this.moveLeft();
+            } else {
+                this.moveRight();
+            }
+        }, 1000 / 60);
+        const animateInterval = setInterval(() => {
+            if (this.energy == 0) {
+                this.playAnimation(this.IMAGES_DEAD);
+            } else if (this.isHurt()) {
+                this.playAnimation(this.IMAGES_HURT);
+            } else if (this.world.positionEnd) {
+                this.playAnimation(this.IMAGES_ALERT);
+            }
+            else {
+                this.playAnimation(this.IMAGES_WALKING);
+            }
         }, 200);
+
         // setInterval(() => {
         //     this.enemyKill(this.energy, moveInterval, animateInterval, this.IMAGE_DEAD);
         // }, 200);
+    }
+
+    resetPositionEnd() {
+        if (this.world.positionEnd) {
+            this.world.positionEnd
+        }
     }
 }

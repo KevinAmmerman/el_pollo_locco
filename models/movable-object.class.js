@@ -3,7 +3,7 @@ class MovableObject extends DrawableObject {
     otherDirection = false;
     speedY = 0;
     acceleration = 2.5;
-    energy = 100;
+    // energy = 100;
     lastHit = 0;
     collectedBottles = 0;
     collectedCoins = 0;
@@ -33,8 +33,10 @@ class MovableObject extends DrawableObject {
     }
 
 
-    hit() {
-        this.energy -= 5
+    hit(character) {
+        if (character) {
+            this.energy -= 5
+        }
         this.lastHit = new Date().getTime();
     }
 
@@ -72,7 +74,7 @@ class MovableObject extends DrawableObject {
 
     playAnimation(images) {
         let i = this.currentImage % images.length;
-        let path = images[i];  // chnages the walking image in a endless loop
+        let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
     }

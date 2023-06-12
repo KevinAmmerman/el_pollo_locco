@@ -11,6 +11,8 @@ class World {
     camera_x = 0;
     throwCooldown = 0;
     throwDelay = 1500;
+    positionEnd = false;
+    varHasBeenSet = false;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -24,6 +26,7 @@ class World {
 
     setWorld() {
         this.character.world = this;
+        this.level.enemies[3].world = this;
     }
 
 
@@ -31,15 +34,14 @@ class World {
         setInterval(() => {
             this.checkCollisionsWithEnemy();
             this.checkCollisionOfBottleWithEnemy();
-            // this.checkCollisionWithBottle();
-            // this.checkCollisionWithCoin();
             this.checkCollisionWithCollectible(this.level.bottles, this.character, "collectedBottles", this.bottleStatusBar, this.character.bottle_sound);
             this.checkCollisionWithCollectible(this.level.coins, this.character, "collectedCoins", this.coinStatusBar, this.character.coin_sound);
+            this.throwBottle();
+            this.checkWhereCharacterIs();
+            this.bottleStatusBar.setPercentage(this.bottleStatusBar.percentage);
             if (this.throwCooldown > 0) {
                 this.throwCooldown -= 100;
             }
-            this.throwBottle();
-            this.bottleStatusBar.setPercentage(this.bottleStatusBar.percentage);
         }, 100);
     }
 
@@ -59,6 +61,7 @@ class World {
         this.level.enemies.forEach(enemy => {
             if (this.character.isCollidingOld(enemy) && this.character.isAboveGround() && enemy.energy > 0 && this.character.speedY < 0) {
                 enemy.energy--;
+                enemy.hit();
                 this.character.jump();
                 if (enemy.energy == 0) {
                     this.deleteEnemy(enemy);
@@ -66,7 +69,7 @@ class World {
                 }
             }
             if (this.character.isCollidingOld(enemy) && !this.character.isAboveGround() && this.character.energy > 0 && enemy.energy > 0) {
-                this.character.hit();
+                this.character.hit(true);
                 this.character.hurt_sound.play();
                 this.statusBar.setPercentage(this.character.energy);
             }
@@ -81,6 +84,7 @@ class World {
                         enemy.energy--;
                         this.breakingGlassSound();
                         this.deleteBottle(bottle);
+                        enemy.hit();
                         if (enemy.energy == 0) {
                             this.deleteEnemy(enemy);
                             this.chickenSound(enemy);

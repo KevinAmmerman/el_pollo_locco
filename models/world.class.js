@@ -11,8 +11,6 @@ class World {
     camera_x = 0;
     throwCooldown = 0;
     throwDelay = 1500;
-    positionEnd = false;
-    varHasBeenSet = false;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -37,7 +35,6 @@ class World {
             this.checkCollisionWithCollectible(this.level.bottles, this.character, "collectedBottles", this.bottleStatusBar, this.character.bottle_sound);
             this.checkCollisionWithCollectible(this.level.coins, this.character, "collectedCoins", this.coinStatusBar, this.character.coin_sound);
             this.throwBottle();
-            this.checkWhereCharacterIs();
             this.bottleStatusBar.setPercentage(this.bottleStatusBar.percentage);
             if (this.throwCooldown > 0) {
                 this.throwCooldown -= 100;

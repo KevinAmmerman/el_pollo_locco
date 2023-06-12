@@ -35,7 +35,6 @@ class ThrowableObject extends MovableObject {
         this.throw_animation = setInterval(() => {
             this.x += 20;
         }, 50);
-        this.rotateBottle();
     }
 
     animate() {
@@ -55,9 +54,4 @@ class ThrowableObject extends MovableObject {
             this.playAnimation(this.IMAGES_SPLASH);
         }
     }
-
-    // splashBottle() {
-    //     clearInterval(this.throw_animation);
-    //     this.playAnimation(this.IMAGES_SPLASH);
-    // }
 }

@@ -117,26 +117,6 @@ class World {
         }, 1000);
     }
 
-    // checkCollisionWithBottle() {
-    //     this.level.bottles.forEach((bottle, index) => {
-    //         if (this.character.isCollidingOld(bottle) && this.character.collectedBottles <= 10) {
-    //             this.level.bottles.splice(index, 1);
-    //             this.character.collectedBottles++;
-    //             this.character.bottle_sound.play();
-    //             this.bottleStatusBar.setPercentage(this.character.collectedBottles);
-    //         }
-    //     });
-    // }
-
-    // checkCollisionWithCoin() {
-    //     this.level.coins.forEach((coin, index) => {
-    //         if (this.character.isCollidingOld(coin)) {
-    //             this.level.coins.splice(index, 1);
-    //             this.character.collectedCoins++;
-    //             this.coinStatusBar.setPercentage(this.character.collectedCoins);
-    //         }
-    //     });
-    // }
 
     checkCollisionWithCollectible(collectibles, character, countPropertyName, statusBar, sound) {
         collectibles.forEach((collectible, index) => {

@@ -4,6 +4,7 @@ class World {
     statusBar = new StatusBar();
     bottleStatusBar = new BottleStatusBar();
     coinStatusBar = new CoinStatusBar();
+    endbossStatusBar = new EndbossStatusBar();
     throwableObject = [];
     ctx;
     canvas;
@@ -59,6 +60,7 @@ class World {
             if (this.character.isCollidingOld(enemy) && this.character.isAboveGround() && enemy.energy > 0 && this.character.speedY < 0) {
                 enemy.energy--;
                 enemy.hit();
+                this.endbossStatusBar.decreaseEnergyOfEndbossStatusBar(enemy);
                 this.character.jump();
                 if (enemy.energy == 0) {
                     this.deleteEnemy(enemy);
@@ -82,6 +84,7 @@ class World {
                         this.breakingGlassSound();
                         this.deleteBottle(bottle);
                         enemy.hit();
+                        this.endbossStatusBar.decreaseEnergyOfEndbossStatusBar(enemy);
                         if (enemy.energy == 0) {
                             this.deleteEnemy(enemy);
                             this.chickenSound(enemy);
@@ -94,6 +97,7 @@ class World {
             });
         }
     }
+
 
     breakingGlassSound() {
         this.character.breaking_glass_sound.play();
@@ -141,6 +145,7 @@ class World {
 
         this.ctx.translate(-this.camera_x, 0);
         // Space for non movable objects ------------------
+        this.addToMap(this.endbossStatusBar);
         this.addToMap(this.coinStatusBar);
         this.addToMap(this.bottleStatusBar);
         this.addToMap(this.statusBar);

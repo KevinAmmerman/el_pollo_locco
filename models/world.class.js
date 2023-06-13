@@ -115,7 +115,7 @@ class World {
     deleteEnemy(enemy) {
         setTimeout(() => {
             this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1);
-        }, 1000);
+        }, 1500);
     }
 
 

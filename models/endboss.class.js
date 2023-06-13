@@ -60,8 +60,10 @@ class Endboss extends MovableObject {
         const moveInterval = setInterval(() => {
             if ((2500 - this.world.character.x) < 800 && this.x > this.world.character.x && this.positionEnd) {
                 this.moveLeft();
+                this.otherDirection = false;
             } else if ((2500 - this.world.character.x) > 800 && this.x < 2500 && this.positionEnd) {
                 this.moveRight();
+                this.otherDirection = true;
             }
         }, 1000 / 60);
         
@@ -82,7 +84,7 @@ class Endboss extends MovableObject {
     }
 
     startEndBoss() {
-        if ((2500 - this.world.character.x) < 800) {
+        if ((2500 - this.world.character.x) < 700) {
             setTimeout(() => {
                 this.positionEnd = true;
             }, 2500);

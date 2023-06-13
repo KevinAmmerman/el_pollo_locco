@@ -4,9 +4,8 @@ class Endboss extends MovableObject {
     y = 50;
     energy = 5;
     world;
-    speed = 3;
+    speed = 8;
     positionEnd = false;
-    varHasBeenSet = false;
     IMAGES_WALKING = [
         'img/4_enemie_boss_chicken/1_walk/G1.png',
         'img/4_enemie_boss_chicken/1_walk/G2.png',
@@ -54,36 +53,45 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_DEAD);
         setTimeout(() => {
             this.animate();
-        }, 500); 
+        }, 800);
     }
 
     animate() {
-        setInterval(() => {
-            if ((2500 - this.world.character.x) < 800) {
+        const moveInterval = setInterval(() => {
+            if ((2500 - this.world.character.x) < 800 && this.x > 1500 && this.positionEnd) {
                 this.moveLeft();
-            } else if ((2500 - this.world.character.x) > 800 && this.x < 2500) {
+            } else if ((2500 - this.world.character.x) > 800 && this.x < 2500 && this.positionEnd) {
                 this.moveRight();
             }
         }, 1000 / 60);
-        const animateInterval = setInterval(() => {
+        setInterval(() => {
             if (this.energy == 0) {
                 this.playAnimation(this.IMAGES_DEAD);
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
-            } else if () {
+            } else if (!this.positionEnd) {
                 this.playAnimation(this.IMAGES_ALERT);
-            }
+            } else if (this.world.character.isHurt()) {
+                this.playAnimation(this.IMAGES_ATTACK)
+            } 
             else {
                 this.playAnimation(this.IMAGES_WALKING);
             }
+            this.startEndBoss();
         }, 200);
 
-        // setInterval(() => {
-        //     this.enemyKill(this.energy, moveInterval, animateInterval, this.IMAGE_DEAD);
-        // }, 200);
+        setInterval(() => {
+            if (this.energy == 0) {
+                clearInterval(moveInterval);
+            }
+        }, 200);
     }
 
     startEndBoss() {
-
+        if ((2500 - this.world.character.x) < 800) {
+            setTimeout(() => {
+                this.positionEnd = true;
+            }, 2500);
+        }
     }
 }

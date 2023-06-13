@@ -2,9 +2,9 @@ class Endboss extends MovableObject {
     height = 400;
     width = 250;
     y = 50;
-    energy = 5;
+    energy = 7;
     world;
-    speed = 8;
+    speed = 6;
     positionEnd = false;
     IMAGES_WALKING = [
         'img/4_enemie_boss_chicken/1_walk/G1.png',
@@ -53,37 +53,31 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_DEAD);
         setTimeout(() => {
             this.animate();
-        }, 800);
+        }, 1000);
     }
 
     animate() {
         const moveInterval = setInterval(() => {
-            if ((2500 - this.world.character.x) < 800 && this.x > 1500 && this.positionEnd) {
+            if ((2500 - this.world.character.x) < 800 && this.x > this.world.character.x && this.positionEnd) {
                 this.moveLeft();
             } else if ((2500 - this.world.character.x) > 800 && this.x < 2500 && this.positionEnd) {
                 this.moveRight();
             }
         }, 1000 / 60);
+        
         setInterval(() => {
-            if (this.energy == 0) {
-                this.playAnimation(this.IMAGES_DEAD);
-            } else if (this.isHurt()) {
+            if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (!this.positionEnd) {
                 this.playAnimation(this.IMAGES_ALERT);
             } else if (this.world.character.isHurt()) {
                 this.playAnimation(this.IMAGES_ATTACK)
-            } 
-            else {
+            } else if (this.energy == 0) {
+                this.endBossDead(moveInterval);
+            } else {
                 this.playAnimation(this.IMAGES_WALKING);
             }
             this.startEndBoss();
-        }, 200);
-
-        setInterval(() => {
-            if (this.energy == 0) {
-                clearInterval(moveInterval);
-            }
         }, 200);
     }
 
@@ -93,5 +87,10 @@ class Endboss extends MovableObject {
                 this.positionEnd = true;
             }, 2500);
         }
+    }
+
+    endBossDead(mI) {
+        clearInterval(mI);
+        this.playAnimation(this.IMAGES_DEAD);
     }
 }

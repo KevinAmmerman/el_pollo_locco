@@ -3,10 +3,15 @@ class MovableObject extends DrawableObject {
     otherDirection = false;
     speedY = 0;
     acceleration = 2.5;
-    // energy = 100;
     lastHit = 0;
     collectedBottles = 0;
     collectedCoins = 0;
+    offset = {
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0
+    }
     chicken_sound = new Audio('audio/chicken.mp3');
 
     applyGravity() {
@@ -18,19 +23,19 @@ class MovableObject extends DrawableObject {
         }, 1000 / 25);
     }
 
+    isCollidingOld(obj) {
+        return (this.x + this.width) - this.offset.right > obj.x + obj.offset.left &&
+            (this.y + this.height) - this.offset.bottom > obj.y + obj.offset.top &&
+            this.x + this.offset.left < obj.x + obj.width + obj.offset.right &&
+            this.y + this.offset.top < obj.y + obj.height + obj.offset.bottom;
+    }
 
     // isColliding(obj) {
-    //     return (this.x + this.width) >= obj.x && this.x <= (obj.x + obj.width) &&
-    //         (this.y + this.offsetY + this.height) >= obj.y &&
-    //         (this.y + this.offsetY) <= (obj.y + obj.height);
+    //     return this.x + this.width > obj.x &&
+    //         this.y + this.height > obj.y &&
+    //         this.x < obj.x &&
+    //         this.y < obj.y + obj.height
     // }
-
-    isCollidingOld(obj) {
-        return this.x + this.width > obj.x &&
-            this.y + this.height > obj.y &&
-            this.x < obj.x &&
-            this.y < obj.y + obj.height
-    }
 
 
     hit(character) {

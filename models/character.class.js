@@ -63,6 +63,12 @@ class Character extends MovableObject {
     ];
     startTime = 0;
     elapsedTime = 5000;
+    offset = {
+        left: 10,
+        right: 20,
+        top: 110,
+        bottom: 10
+    }
     world;
     walking_sound = new Audio('audio/running.mp3');
     jump_sound = new Audio('audio/jump.mp3');

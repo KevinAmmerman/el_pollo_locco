@@ -2,9 +2,15 @@ class Endboss extends MovableObject {
     height = 400;
     width = 250;
     y = 50;
-    energy = 7;
+    energy = 15;
     world;
     speed = 6;
+    offset = {
+        left: 15,
+        right: 20,
+        top: 80,
+        bottom: 30
+    }
     positionEnd = false;
     IMAGES_WALKING = [
         'img/4_enemie_boss_chicken/1_walk/G1.png',
@@ -53,7 +59,7 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_DEAD);
         setTimeout(() => {
             this.animate();
-        }, 1000);
+        }, 5000);
     }
 
     animate() {
@@ -80,6 +86,7 @@ class Endboss extends MovableObject {
                 this.playAnimation(this.IMAGES_WALKING);
             }
             this.startEndBoss();
+            console.log('energy Boss', this.energy)
         }, 200);
     }
 

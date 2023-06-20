@@ -86,7 +86,7 @@ class Endboss extends MovableObject {
                 this.playAnimation(this.IMAGES_WALKING);
             }
             this.startEndBoss();
-            console.log('energy Boss', this.energy)
+            // console.log('energy Boss', this.energy)
         }, 200);
     }
 

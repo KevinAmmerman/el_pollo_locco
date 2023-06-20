@@ -1,6 +1,28 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let imagesToLoad = 0;
+let imageLoaded = 0;
+let percent = 0;
+
+function toggleInfo() {
+    document.getElementById('gameInfoContainer').classList.toggle('dNone');
+}
+
+function loadGame() {
+    let loadingInterval = setInterval(() => {
+        document.getElementById('loadingStatus').innerHTML = percent;
+    }, 200);
+    if (percent == 100) {
+        clearInterval(loadingInterval);
+    }
+}
+
+function startGame() {
+    document.getElementById('starScreen').classList.add('dNone');
+    document.getElementById('canvas').classList.remove('dNone');
+    init();
+}
 
 function init() {
     canvas = document.getElementById('canvas');
@@ -50,3 +72,7 @@ window.addEventListener('keyup', (e) => {
         keyboard.D = false;
     }
 });
+
+function doNotClose(event) {
+    event.stopPropagation();
+}

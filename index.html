@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,6 +11,8 @@
     <link rel="stylesheet" href="style.css">
 
     <!-- JS-SCRIPTS -->
+    <script src="models/keyboard.class.js"></script>
+    <script src="scripts/game.js"></script>
     <script src="models/drawable-object.class.js"></script>
     <script src="models/movable-object.class.js"></script>
     <script src="models/character.class.js"></script>
@@ -25,14 +28,39 @@
     <script src="models/endboss.class.js"></script>
     <script src="models/cloud.class.js"></script>
     <script src="models/background-object.class.js"></script>
-    <script src="models/keyboard.class.js"></script>
+
     <script src="models/world.class.js"></script>
     <script src="models/level.class.js"></script>
     <script src="levels/level1.js"></script>
-    <script src="scripts/game.js"></script>
+
 </head>
-<body onload="init()">
+
+<body onload="loadGame()">
     <h1>El Pollo Locco</h1>
-    <canvas id="canvas" width="720px" height="480px"></canvas>
+    <div id="loadingScreen" class="dNone">
+        <img class="loadingImg" src="./img/loading/mexican-hat.png" alt="">
+        <div id="loadingStatus"></div>
+    </div>
+    <div id="starScreen" class="">
+        <div class="btnContainer">
+            <button onclick="startGame()" class="btnStyle">Start</button>
+            <button onclick="toggleInfo()" class="btnStyle">Info</button>
+        </div>
+        <div id="gameInfoContainer" class="dNone" onclick="toggleInfo()">
+            <div id="gameInfo" onclick="doNotClose(event)">
+                <button onclick="toggleInfo()" class="closeInfo"></button>
+                <div class="controlContainer">
+                    <img class="controllerImg" src="./img/control/arrows.png" alt="">
+                    <span>walk/jump</span>
+                </div>
+                <div class="controlContainer">
+                    <img class="controllerImg" src="./img/control/space.png" alt="">
+                    <span>throw bottle</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <canvas class="dNone" id="canvas" width="720px" height="480px"></canvas>
 </body>
+
 </html>

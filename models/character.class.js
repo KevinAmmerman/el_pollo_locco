@@ -2,7 +2,7 @@ class Character extends MovableObject {
     y = 160;
     height = 280;
     width = 110;
-    speed = 10;
+    speed = 5;
     energy = 100;
     IMAGES_IDLE = [
         'img/2_character_pepe/1_idle/idle/I-1.png',
@@ -128,7 +128,7 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 this.playAnimation(this.IMAGES_WALKING);
-            } else if(this.startTime <= 0) {
+            } else if(this.startTime <= 0 && levelInitialized) {
                 this.playAnimation(this.IMAGES_IDLE_LONG);
             } else {
                 this.playAnimation(this.IMAGES_IDLE);

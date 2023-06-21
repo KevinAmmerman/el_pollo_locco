@@ -44,7 +44,7 @@ class World {
     }
 
     throwBottle() {
-        if (this.keyboard.SPACE && this.character.collectedBottles > 0 && this.throwCooldown <= 0) {
+        if (this.keyboard.D && this.character.collectedBottles > 0 && this.throwCooldown <= 0 && gameStarted) {
             let bottle = new ThrowableObject(this.character.x + 40, this.character.y + 100);
             this.throwableObject.push(bottle);
             this.character.collectedBottles--;

@@ -55,6 +55,16 @@ body {
     width: 720px;
 }
 
+.infoWindowStyle {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 /* === LOADING-SCREEN === */
 
 #loadingScreen {
@@ -126,16 +136,6 @@ body {
     display: flex;
     justify-content: space-between;
     margin-top: 50px;
-}
-
-#gameInfoContainer {
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.3);
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 #gameInfo {
@@ -223,4 +223,8 @@ canvas {
 
 #pauseBtn {
     background-image: url(./img/control/pause.png);
+}
+
+#infoIngameContainer {
+    z-index: 2;
 }

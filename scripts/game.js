@@ -5,10 +5,7 @@ let imagesToLoad = 0;
 let imageLoaded = 0;
 let percent = 0;
 let gameStarted = false;
-
-function toggleInfo() {
-    document.getElementById('gameInfoContainer').classList.toggle('dNone');
-}
+let soundMuted = false;
 
 function loadGame() {
     initLevel();
@@ -35,6 +32,36 @@ function init() {
     world = new World(canvas, keyboard);
 }
 
+
+function toggleInfo(id) {
+    document.getElementById(id).classList.toggle('dNone');
+}
+
+function pauseGame() {
+    let button = document.getElementById('pauseBtn');
+    if (gameStarted) {
+        gameStarted = false;
+        button.style.backgroundImage = "url('img/control/play-buttton.png')";
+    } else {
+        gameStarted = true;
+        button.style.backgroundImage = "url('img/control/pause.png')";
+    }
+}
+
+
+function muteSound() {
+    let button = document.getElementById('volumeBtn');
+    soundMuted = !soundMuted;
+    let objects = [world.character, ...world.level.enemies];
+    objects.forEach(obj => {
+        for (let key in obj) {
+            if (key.toLowerCase().includes('sound')) {
+                obj[key].muted = soundMuted;
+                button.style.backgroundImage = `url('img/control/volume${soundMuted ? "-mute" : ""}.png')`;
+            }
+          } 
+    });
+}
 
 window.addEventListener('keydown', (e) => {
     if (e.keyCode == 38) {

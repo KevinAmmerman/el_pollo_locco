@@ -65,10 +65,10 @@ class Endboss extends MovableObject {
 
     animate() {
         const moveInterval = setInterval(() => {
-            if ((2500 - this.world.character.x) < 800 && this.x > this.world.character.x && this.positionEnd) {
+            if ((2500 - this.world.character.x) < 800 && this.x > this.world.character.x && this.positionEnd && gameStarted) {
                 this.moveLeft();
                 this.otherDirection = false;
-            } else if ((2500 - this.world.character.x) > 800 && this.x < 2500 && this.positionEnd) {
+            } else if ((2500 - this.world.character.x) > 800 && this.x < 2500 && this.positionEnd && gameStarted) {
                 this.moveRight();
                 this.otherDirection = true;
             }

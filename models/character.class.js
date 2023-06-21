@@ -96,17 +96,17 @@ class Character extends MovableObject {
     animate() {
         setInterval(() => {
             this.walking_sound.pause();
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && gameStarted) {
                 this.moveRight();
                 this.otherDirection = false;
                 this.walking_sound.play();
             }
-            if (this.world.keyboard.LEFT && this.x > -600) {
+            if (this.world.keyboard.LEFT && this.x > -600 && gameStarted) {
                 this.moveLeft();
                 this.otherDirection = true;
                 this.walking_sound.play();
             }
-            if (this.world.keyboard.UP && !this.isAboveGround()) {
+            if (this.world.keyboard.UP && !this.isAboveGround() && gameStarted) {
                 this.jump();
                 this.jump_sound.play();
             }

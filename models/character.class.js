@@ -128,7 +128,7 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 this.playAnimation(this.IMAGES_WALKING);
-            } else if(this.startTime <= 0 && levelInitialized) {
+            } else if(this.startTime <= 0) {
                 this.playAnimation(this.IMAGES_IDLE_LONG);
             } else {
                 this.playAnimation(this.IMAGES_IDLE);

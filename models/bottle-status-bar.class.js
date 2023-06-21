@@ -8,7 +8,7 @@ class BottleStatusBar extends DrawableObject {
         'img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/100.png'
     ];
     x = 20;
-    y = 40;
+    y = 60;
     width = 200;
     height = 50;
     percentage = 0;

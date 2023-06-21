@@ -4,7 +4,7 @@ let keyboard = new Keyboard();
 let imagesToLoad = 0;
 let imageLoaded = 0;
 let percent = 0;
-let levelInitialized = false;
+let gameStarted = false;
 
 function toggleInfo() {
     document.getElementById('gameInfoContainer').classList.toggle('dNone');
@@ -14,15 +14,20 @@ function loadGame() {
     initLevel();
     init();
     setTimeout(() => {
-        document.getElementById('loadingScreen').classList.add('dNone');
+        document.getElementById('loadingScreen').classList.add('fadeOut');
         document.getElementById('starScreen').classList.remove('dNone');
+        setTimeout(() => {
+            document.getElementById('loadingScreen').classList.add('dNone');
+        }, 500);
     }, 3000);
 }
 
 function startGame() {
-    document.getElementById('starScreen').classList.add('dNone');
-    document.getElementById('canvas').classList.remove('dNone');
-    levelInitialized = true;
+    if (percent == 100) {
+        document.getElementById('starScreen').classList.add('dNone');
+        document.getElementById('canvas').classList.remove('dNone');
+        gameStarted = true;
+    }
 }
 
 function init() {

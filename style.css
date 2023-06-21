@@ -49,6 +49,12 @@ body {
     transform: scale(1.1);
 }
 
+.gameScreen {
+    position: relative;
+    height: 480px;
+    width: 720px;
+}
+
 /* === LOADING-SCREEN === */
 
 #loadingScreen {
@@ -60,6 +66,11 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    right: 0;
 }
 
 .loadingImg {
@@ -69,6 +80,11 @@ body {
 
 .loadingStatus {
     font-size: 1.5rem;
+}
+
+.fadeOut {
+    opacity: 0;
+    transition: opacity 1s ease-in;
 }
 
 @keyframes spin {
@@ -92,6 +108,17 @@ body {
     align-items: center;
     flex-direction: column;
     position: relative;
+    animation: fadeIn 500ms ease-out;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: .5;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
 .btnContainer {
@@ -151,6 +178,47 @@ body {
 
 /* === CANVAS === */
 
+.canvasContainer {
+    position: relative;
+    width: 720px;
+    height: 480px;
+}
+
 canvas {
     background-color: black;
+    position: absolute;
+}
+
+.ingameControl {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+#volumeBtn {
+    background-image: url(./img/control/volume.png);
+    background-size: 20px 20px;
+    background-color: transparent;
+    border: none;
+    width: 20px;
+    height: 20px;
+}
+
+#infoIngameBtn {
+    background-image: url(./img/control/info.png);
+    background-size: 20px 20px;
+    background-color: transparent;
+    border: none;
+    width: 20px;
+    height: 20px;
+}
+
+#pauseBtn {
+    background-image: url(./img/control/pause.png);
+    background-size: 20px 20px;
+    background-color: transparent;
+    border: none;
+    width: 20px;
+    height: 20px;
 }

@@ -37,30 +37,40 @@
 
 <body onload="loadGame()">
     <h1>El Pollo Locco</h1>
-    <div id="loadingScreen" class="">
-        <img class="loadingImg" src="./img/loading/mexican-hat.png" alt="">
-        <div class="loadingStatus">LOADING...</div>
-    </div>
-    <div id="starScreen" class="dNone">
-        <div class="btnContainer">
-            <button onclick="startGame()" class="btnStyle">Start</button>
-            <button onclick="toggleInfo()" class="btnStyle">Info</button>
+    <div class="gameScreen">
+        <div id="loadingScreen" class="">
+            <img class="loadingImg" src="./img/loading/mexican-hat.png" alt="">
+            <div class="loadingStatus">LOADING...</div>
         </div>
-        <div id="gameInfoContainer" class="dNone" onclick="toggleInfo()">
-            <div id="gameInfo" onclick="doNotClose(event)">
-                <button onclick="toggleInfo()" class="closeInfo"></button>
-                <div class="controlContainer">
-                    <img class="controllerImg" src="./img/control/arrows.png" alt="">
-                    <span>walk/jump</span>
-                </div>
-                <div class="controlContainer">
-                    <img class="controllerImg" src="./img/control/space.png" alt="">
-                    <span>throw bottle</span>
+        <div id="starScreen" class="dNone">
+            <div class="btnContainer">
+                <button onclick="startGame()" class="btnStyle">Start</button>
+                <button onclick="toggleInfo()" class="btnStyle">Info</button>
+            </div>
+            <div id="gameInfoContainer" class="dNone" onclick="toggleInfo()">
+                <div id="gameInfo" onclick="doNotClose(event)">
+                    <button onclick="toggleInfo()" class="closeInfo"></button>
+                    <div class="controlContainer">
+                        <img class="controllerImg" src="./img/control/arrows.png" alt="">
+                        <span>walk/jump</span>
+                    </div>
+                    <div class="controlContainer">
+                        <img class="controllerImg" src="./img/control/space.png" alt="">
+                        <span>throw bottle</span>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="canvasContainer">
+            <div class="ingameControl">
+                <button id="pauseBtn"></button>
+                <button id="infoIngameBtn"></button>
+                <button id="volumeBtn"></button>
+            </div>
+            <canvas class="dNone" id="canvas" width="720px" height="480px"></canvas>
+        </div>
     </div>
-    <canvas class="dNone" id="canvas" width="720px" height="480px"></canvas>
+
 </body>
 
 </html>

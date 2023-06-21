@@ -8,7 +8,7 @@ class CoinStatusBar extends DrawableObject {
         'img/7_statusbars/1_statusbar/1_statusbar_coin/green/100.png',
     ];
     x = 20;
-    y = 80;
+    y = 100;
     width = 200;
     height = 50;
     percentage = 0;

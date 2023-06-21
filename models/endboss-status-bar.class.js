@@ -8,7 +8,7 @@ class EndbossStatusBar extends DrawableObject {
         'img/7_statusbars/2_statusbar_endboss/100.png',
     ];
     x = 495;
-    y = 0;
+    y = 20;
     width = 200;
     height = 50;
     percentage = 100;

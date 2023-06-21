@@ -191,34 +191,36 @@ canvas {
 
 .ingameControl {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 10px;
+    left: 50%;
     z-index: 1;
+    transform: translateX(-50%);
+    width: 100px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.ingameControlBtn {
+    background-size: 20px 20px;
+    background-color: transparent;
+    border: none;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.ingameControlBtn:hover {
+    transform: scale(1.1);
 }
 
 #volumeBtn {
     background-image: url(./img/control/volume.png);
-    background-size: 20px 20px;
-    background-color: transparent;
-    border: none;
-    width: 20px;
-    height: 20px;
 }
 
 #infoIngameBtn {
     background-image: url(./img/control/info.png);
-    background-size: 20px 20px;
-    background-color: transparent;
-    border: none;
-    width: 20px;
-    height: 20px;
 }
 
 #pauseBtn {
     background-image: url(./img/control/pause.png);
-    background-size: 20px 20px;
-    background-color: transparent;
-    border: none;
-    width: 20px;
-    height: 20px;
 }

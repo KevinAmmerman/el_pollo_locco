@@ -60,8 +60,16 @@ function muteSound() {
                 obj[key].muted = soundMuted;
                 button.style.backgroundImage = `url('img/control/volume${soundMuted ? "-mute" : ""}.png')`;
             }
-          } 
+        }
     });
+}
+
+function buttonPressed(key) {
+    keyboard[key] = true;
+}
+
+function buttonReleased(key) {
+    keyboard[key] = false;
 }
 
 window.addEventListener('keydown', (e) => {

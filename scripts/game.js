@@ -23,6 +23,7 @@ function startGame() {
     if (percent == 100) {
         document.getElementById('starScreen').classList.add('dNone');
         document.getElementById('canvas').classList.remove('dNone');
+        document.getElementById('ingameControl').classList.remove('dNone');
         gameStarted = true;
     }
 }

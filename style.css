@@ -23,6 +23,7 @@ body {
     height: 100vh;
     background-image: url(./background.JPG);
     background-size: cover;
+    overflow-y: hidden;
 }
 
 /* === GLOBAL === */
@@ -189,7 +190,7 @@ canvas {
     position: absolute;
 }
 
-.ingameControl {
+#ingameControl {
     position: absolute;
     top: 10px;
     left: 50%;
@@ -227,4 +228,24 @@ canvas {
 
 #infoIngameContainer {
     z-index: 2;
+}
+
+#mobileControler {
+    background-color: rgba(0, 0, 0, 0.3);
+    width: 100%;
+    height: 20%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    display: flex;
+    justify-content: space-around;
+}
+
+.mobileBtn {
+    width: 25px;
+    height: 25px;
+    background-size: 25px 25px;
+    background-color: transparent;
 }

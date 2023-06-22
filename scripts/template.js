@@ -1,45 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Pollo Locco</title>
-
-    <!-- CSS-SHEETS -->
-    <link rel="stylesheet" href="style.css">
-
-    <!-- JS-SCRIPTS -->
-    <script src="scripts/template.js"></script>
-    <script src="models/keyboard.class.js"></script>
-    <script src="scripts/game.js"></script>
-    <script src="models/drawable-object.class.js"></script>
-    <script src="models/movable-object.class.js"></script>
-    <script src="models/character.class.js"></script>
-    <script src="models/status-bar.class.js"></script>
-    <script src="models/bottle-status-bar.class.js"></script>
-    <script src="models/coin-status-bar.class.js"></script>
-    <script src="models/endboss-status-bar.class.js"></script>
-    <script src="models/throwable-object.class.js"></script>
-    <script src="models/bottle.class.js"></script>
-    <script src="models/coin.class.js"></script>
-    <script src="models/chicken.class.js"></script>
-    <script src="models/chicken-small.class.js"></script>
-    <script src="models/endboss.class.js"></script>
-    <script src="models/cloud.class.js"></script>
-    <script src="models/background-object.class.js"></script>
-    <script src="models/world.class.js"></script>
-    <script src="models/level.class.js"></script>
-    <script src="levels/level1.js"></script>
-
-</head>
-
-<body onload="loadGame()">
-    <h1 class="headline">El Pollo Locco</h1>
-    <img class="rotateImgStyle" src="./img/control/rotate.png" alt="">
-    <div id="gameScreen">
-        <!-- <div id="loadingScreen" class="">
+function createHtmlForGame() {
+    return `
+        <div id="loadingScreen" class="">
             <img class="loadingImg" src="./img/loading/mexican-hat.png" alt="">
             <div class="loadingStatus">LOADING...</div>
         </div>
@@ -62,11 +23,12 @@
                 </div>
             </div>
         </div>
-        <div id="endScreen">
-            <button onclick="" class="btnStyle">Back to menu</button>
+        <div id="endScreen" class="dNone">
+            <img class="gameOverImg" src="./img/9_intro_outro_screens/game_over/game over.png">
+            <button onclick="loadGame('newStart')" class="restartBtn">Back to menu</button>
         </div>
-        <div class="canvasContainer">
-            <div id="ingameControl" class="dNone">
+        <div id="canvasContainer" class="dNone">
+            <div id="ingameControl">
                 <button class="ingameControlBtn" id="pauseBtn" onclick="pauseGame()"></button>
                 <button class="ingameControlBtn" id="infoIngameBtn"
                     onclick="toggleInfo('infoIngameContainer')"></button>
@@ -96,22 +58,6 @@
                 </div>
             </div>
             <canvas class="dNone" id="canvas" width="720px" height="480px"></canvas>
-        </div> -->
-    </div>
-    <button class="btnStyle attributeBtn" onclick="toggleInfo('linkMainContainer')">License Information</button>
-    <div id="linkMainContainer" class="dNone" onclick="toggleInfo('linkMainContainer')">
-        <div class="linkWindow">
-            <ul>
-                <li>
-                    <a class="attributeLinkStyle" href="https://www.flaticon.com/free-icons/next" title="next icons">Next icons created by Smashicons - Flaticon</a>
-                </li>
-                <li>
-                    <a class="attributeLinkStyle" href="https://www.flaticon.com/free-icons/telephone" title="telephone icons">Telephone icons created by Pixel perfect - Flaticon</a>
-                </li>
-            </ul>
         </div>
-    </div>
-    
-</body>
-
-</html>
+    `;
+}

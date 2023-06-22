@@ -88,6 +88,7 @@ class World {
                         if (enemy.energy == 0) {
                             this.deleteEnemy(enemy);
                             this.chickenSound(enemy);
+                            this.checkIfEndbossAlive(enemy)
                         }
                     } else if (!bottle.isCollidingOld(enemy) && !bottle.isAboveGround()) {
                         this.breakingGlassSound();
@@ -98,6 +99,19 @@ class World {
         }
     }
 
+    checkIfEndbossAlive(enemy) {
+        if (enemy instanceof Endboss) {
+            setTimeout(() => {
+                this.gameIsOver();
+            }, 2500);
+        } else {
+            return;
+        }
+    }
+
+    gameIsOver() {
+        document.getElementById('endScreen').classList.remove('dNone');
+    }
 
     breakingGlassSound() {
         this.character.breaking_glass_sound.play();
@@ -158,9 +172,8 @@ class World {
         this.addToMap(this.character);
         this.ctx.translate(-this.camera_x, 0);
 
-        let self = this;
-        requestAnimationFrame(function () {
-            self.draw();
+        requestAnimationFrame(() => {
+            this.draw();
         });
     }
 

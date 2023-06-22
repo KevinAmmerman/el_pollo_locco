@@ -7,7 +7,15 @@ let percent = 0;
 let gameStarted = false;
 let soundMuted = false;
 
-function loadGame() {
+async function loadGame(newStart) {
+    if(newStart) {
+        canvas = null;
+        world = null;
+        gameStarted = false;
+        soundMuted = false;
+    }
+    await generateHTML();
+    setupTouchListeners();
     initLevel();
     init();
     setTimeout(() => {
@@ -19,11 +27,15 @@ function loadGame() {
     }, 3000);
 }
 
+async function generateHTML() {
+    document.getElementById('gameScreen').innerHTML = createHtmlForGame();
+}
+
 function startGame() {
     if (percent == 100) {
         document.getElementById('starScreen').classList.add('dNone');
         document.getElementById('canvas').classList.remove('dNone');
-        document.getElementById('ingameControl').classList.remove('dNone');
+        document.getElementById('canvasContainer').classList.remove('dNone');
         gameStarted = true;
     }
 }
@@ -64,27 +76,35 @@ function muteSound() {
     });
 }
 
-function setupButtonTouchEvents() {
-    var buttons = document.getElementsByClassName('mobileBtn');
+// MOBILE CONTROL ELEMENTS
 
-    for (var i = 0; i < buttons.length; i++) {
-        buttons[i].addEventListener('touchstart', function (event) {
-            var buttonId = event.target.id;
-            console.log("Button gedrückt: " + buttonId);
-            // Weitere Aktionen für den gedrückten Button durchführen
-        });
 
-        buttons[i].addEventListener('touchend', function (event) {
-            var buttonId = event.target.id;
-            console.log("Button losgelassen: " + buttonId);
-            // Weitere Aktionen für den losgelassenen Button durchführen
-        });
-    }
+function setupTouchListeners() {
+    document.getElementById('canvas').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+    });
+
+    attachTouchListenersToButton('leftKey', 'LEFT');
+    attachTouchListenersToButton('rightKey', 'RIGHT');
+    attachTouchListenersToButton('jumpKey', 'UP');
+    attachTouchListenersToButton('throwKey', 'D');
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    setupButtonTouchEvents();
-});
+function attachTouchListenersToButton(buttonId, keyboardKey) {
+    const buttonElement = document.getElementById(buttonId);
+
+    buttonElement.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard[keyboardKey] = true;
+    });
+
+    buttonElement.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard[keyboardKey] = false;
+    });
+}
+
+// KEYBOARD LISTENER
 
 window.addEventListener('keydown', (e) => {
     if (e.keyCode == 38) {

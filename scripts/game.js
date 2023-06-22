@@ -64,13 +64,27 @@ function muteSound() {
     });
 }
 
-function buttonPressed(key) {
-    keyboard[key] = true;
+function setupButtonTouchEvents() {
+    var buttons = document.getElementsByClassName('mobileBtn');
+
+    for (var i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener('touchstart', function (event) {
+            var buttonId = event.target.id;
+            console.log("Button gedrückt: " + buttonId);
+            // Weitere Aktionen für den gedrückten Button durchführen
+        });
+
+        buttons[i].addEventListener('touchend', function (event) {
+            var buttonId = event.target.id;
+            console.log("Button losgelassen: " + buttonId);
+            // Weitere Aktionen für den losgelassenen Button durchführen
+        });
+    }
 }
 
-function buttonReleased(key) {
-    keyboard[key] = false;
-}
+document.addEventListener('DOMContentLoaded', function () {
+    setupButtonTouchEvents();
+});
 
 window.addEventListener('keydown', (e) => {
     if (e.keyCode == 38) {

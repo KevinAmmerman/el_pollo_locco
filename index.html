@@ -83,12 +83,12 @@
             </div>
             <div id="mobileControler">
                 <div class="leftHand">
-                    <button id="jumpKey" class="mobileBtn"></button>
-                    <button id="throwKey" class="mobileBtn"></button>
+                    <button onmouseup="buttonReleased('UP')" onmousedown="buttonPressed('UP')" id="jumpKey" class="mobileBtn"></button>
+                    <button onmouseup="buttonReleased('D')" onmousedown="buttonPressed('D')" id="throwKey" class="mobileBtn"></button>
                 </div>
                 <div class="rightHand">
-                    <button id="leftKey" class="mobileBtn"></button>
-                    <button id="rightKey" class="mobileBtn"></button>
+                    <button onmouseup="buttonReleased('LEFT')" onmousedown="buttonPressed('LEFT')" id="leftKey" class="mobileBtn"></button>
+                    <button onmouseup="buttonReleased('RIGHT')" onmousedown="buttonPressed('RIGHT')" id="rightKey" class="mobileBtn"></button>
                 </div>
             </div>
             <canvas class="dNone" id="canvas" width="720px" height="480px"></canvas>

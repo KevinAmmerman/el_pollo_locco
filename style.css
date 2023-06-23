@@ -138,8 +138,8 @@ body {
 /* === LOADING-SCREEN === */
 
 #loadingScreen {
-    height: 480px;
-    width: 720px;
+    width: 100%;
+    height: 100%;
     background-image: url(./img/5_background/second_half_background.png);
     background-size: 100% 100%;
     display: flex;
@@ -181,8 +181,8 @@ body {
 /* === START-SCREEN === */
 
 #starScreen {
-    height: 480px;
-    width: 720px;
+    width: 100%;
+    height: 100%;
     background-image: url(./img/9_intro_outro_screens/start/startscreen_1.png);
     background-size: 100% 100%;
     display: flex;
@@ -252,8 +252,8 @@ body {
 
 #canvasContainer {
     position: relative;
-    width: 720px;
-    height: 480px;
+    width: 100%;
+    height: 100%;
     animation: fadeIn 1500ms ease-out;
 }
 
@@ -304,7 +304,7 @@ canvas {
 
 #mobileControler {
     width: 100%;
-    height: 10%;
+    height: 12%;
     position: absolute;
     left: 0;
     right: 0;
@@ -312,6 +312,7 @@ canvas {
     z-index: 2;
     display: flex;
     justify-content: space-around;
+    display: none;
 }
 
 .mobileBtn {
@@ -396,6 +397,13 @@ canvas {
 
 /*  === MEDIA-QUERIES === */
 
+@media (max-width: 900px) {
+
+    #mobileControler {
+        display: flex;
+    }
+}
+
 @media (max-width: 500px) {
 
     body {
@@ -412,5 +420,26 @@ canvas {
 
     .rotateImgStyle {
         display: block;
+    }
+}
+
+@media (max-height: 500px) {
+
+    #gameScreen {
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .headline {
+        display: none;
+    }
+
+    .attributeBtn {
+        display: none;
+    }
+
+    canvas {
+        height: 100vh;
+        width: 100vw;
     }
 }

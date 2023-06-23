@@ -83,12 +83,10 @@ function setupTouchListeners() {
 
 function attachTouchListenersToButton(buttonId, keyboardKey) {
     const buttonElement = document.getElementById(buttonId);
-
     buttonElement.addEventListener('touchstart', (e) => {
         e.preventDefault();
         keyboard[keyboardKey] = true;
     });
-
     buttonElement.addEventListener('touchend', (e) => {
         e.preventDefault();
         keyboard[keyboardKey] = false;

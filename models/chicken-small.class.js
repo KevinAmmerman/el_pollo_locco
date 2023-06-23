@@ -38,7 +38,7 @@ class ChickenSmall extends MovableObject {
             this.playAnimation(this.IMAGES_WALKING);
         }, 200);
 
-        setInterval(() => {
+        setStoppableInterval(() => {
             this.enemyKill(this.energy, moveInterval, animateInterval, this.IMAGE_DEAD);
         }, 200);
     }

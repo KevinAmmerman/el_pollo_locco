@@ -94,7 +94,7 @@ class Character extends MovableObject {
 
 
     animate() {
-        setInterval(() => {
+        setStoppableInterval(() => {
             this.walking_sound.pause();
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && gameStarted) {
                 this.moveRight();
@@ -116,7 +116,7 @@ class Character extends MovableObject {
             this.world.camera_x = -this.x +60;
         }, 1000 / 60);
 
-        setInterval(() => {
+        setStoppableInterval(() => {
             if(this.startTime > 0) {
                 this.startTime -= 100;
             }

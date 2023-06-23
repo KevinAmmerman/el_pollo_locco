@@ -6,9 +6,10 @@ let imageLoaded = 0;
 let percent = 0;
 let gameStarted = false;
 let soundMuted = false;
+let intervalIds = [];
 
 async function loadGame(newStart) {
-    if(newStart) {
+    if (newStart) {
         canvas = null;
         world = null;
         gameStarted = false;
@@ -18,25 +19,68 @@ async function loadGame(newStart) {
     setupTouchListeners();
     initLevel();
     init();
-    setTimeout(() => {
-        document.getElementById('loadingScreen').classList.add('fadeOut');
-        document.getElementById('starScreen').classList.remove('dNone');
-        setTimeout(() => {
-            document.getElementById('loadingScreen').classList.add('dNone');
-        }, 500);
-    }, 3000);
+    // setTimeout(() => {
+    //     document.getElementById('loadingScreen').classList.add('fadeOut');
+    //     document.getElementById('starScreen').classList.remove('dNone');
+    //     setTimeout(() => {
+    //         document.getElementById('loadingScreen').classList.add('dNone');
+    //     }, 500);
+    // }, 3000);
 }
 
 async function generateHTML() {
     document.getElementById('gameScreen').innerHTML = createHtmlForGame();
 }
 
+// function startGame() {
+//     if (percent == 100) {
+//         document.getElementById('starScreen').classList.add('fadeOut');
+//         document.getElementById('canvas').classList.remove('dNone');
+//         document.getElementById('canvasContainer').classList.remove('dNone');
+//         gameStarted = true;
+//         setTimeout(() => {
+//             document.getElementById('starScreen').classList.add('fadeOut');
+//             document.getElementById('loadingScreen').classList.remove('dNone');
+//             setTimeout(() => {
+//                 document.getElementById('loadingScreen').classList.add('dNone');
+//             }, 500);
+//         }, 3000);
+//     }
+// }
+
 function startGame() {
-    if (percent == 100) {
-        document.getElementById('starScreen').classList.add('dNone');
-        document.getElementById('canvas').classList.remove('dNone');
-        document.getElementById('canvasContainer').classList.remove('dNone');
-        gameStarted = true;
+    fadeOut('starScreen');
+    fadeIn('loadingScreen');
+    addOrRemoveDNone('loadingScreen', 'remove');
+    setTimeout(() => {
+        addOrRemoveDNone('starScreen', 'add');
+    }, 1000);
+    setTimeout(() => {
+        fadeOut('loadingScreen');
+        setTimeout(() => {
+            fadeIn('canvasContainer');
+            addOrRemoveDNone('canvasContainer', 'remove');
+            gameStarted = true;
+            setTimeout(() => {
+                addOrRemoveDNone('loadingScreen', 'add');
+            }, 2000);
+        }, 500);
+    }, 3000);
+}
+
+function fadeIn(id) {
+    document.getElementById(id).classList.add('fadeIn');
+}
+
+function fadeOut(id) {
+    document.getElementById(id).classList.add('fadeOut');
+}
+
+function addOrRemoveDNone(id, actionType) {
+    if (actionType == 'add') {
+        document.getElementById(id).classList.add('dNone');
+    } else {
+        document.getElementById(id).classList.remove('dNone');
     }
 }
 
@@ -48,6 +92,7 @@ function init() {
 
 function toggleInfo(id) {
     document.getElementById(id).classList.toggle('dNone');
+    document.getElementById(id).classList.toggle('fadeIn');
 }
 
 function pauseGame() {
@@ -59,6 +104,12 @@ function pauseGame() {
         gameStarted = true;
         button.style.backgroundImage = "url('img/control/pause.png')";
     }
+}
+
+
+function stopGame() {
+    intervalIds.forEach(clearInterval);
+    document.getElementById('endScreen').classList.remove('dNone');
 }
 
 
@@ -74,6 +125,12 @@ function muteSound() {
             }
         }
     });
+}
+
+
+function setStoppableInterval(fn, time) {
+    let id = setInterval(fn, time);
+    intervalIds.push(id);
 }
 
 // MOBILE CONTROL ELEMENTS

@@ -15,7 +15,7 @@ class MovableObject extends DrawableObject {
     chicken_sound = new Audio('audio/chicken.mp3');
 
     applyGravity() {
-        setInterval(() => {
+        setStoppableInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
@@ -29,13 +29,6 @@ class MovableObject extends DrawableObject {
             this.x + this.offset.left < obj.x + obj.width + obj.offset.right &&
             this.y + this.offset.top < obj.y + obj.height + obj.offset.bottom;
     }
-
-    // isColliding(obj) {
-    //     return this.x + this.width > obj.x &&
-    //         this.y + this.height > obj.y &&
-    //         this.x < obj.x &&
-    //         this.y < obj.y + obj.height
-    // }
 
 
     hit(character) {

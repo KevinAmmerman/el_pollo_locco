@@ -74,7 +74,7 @@ class Endboss extends MovableObject {
             }
         }, 1000 / 60);
         
-        setInterval(() => {
+        setStoppableInterval(() => {
             if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (!this.positionEnd) {
@@ -87,7 +87,6 @@ class Endboss extends MovableObject {
                 this.playAnimation(this.IMAGES_WALKING);
             }
             this.startEndBoss();
-            // console.log('energy Boss', this.energy)
         }, 200);
     }
 

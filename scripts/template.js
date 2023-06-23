@@ -1,10 +1,10 @@
 function createHtmlForGame() {
     return `
-        <div id="loadingScreen" class="">
+        <div id="loadingScreen" class="dNone">
             <img class="loadingImg" src="./img/loading/mexican-hat.png" alt="">
             <div class="loadingStatus">LOADING...</div>
         </div>
-        <div id="starScreen" class="dNone">
+        <div id="starScreen" class="">
             <div class="btnContainer">
                 <button onclick="startGame()" class="btnStyle">Start</button>
                 <button onclick="toggleInfo('gameInfoContainer')" class="btnStyle">Info</button>
@@ -57,7 +57,7 @@ function createHtmlForGame() {
                     <button id="rightKey" class="mobileBtn"></button>
                 </div>
             </div>
-            <canvas class="dNone" id="canvas" width="720px" height="480px"></canvas>
+            <canvas class="" id="canvas" width="720px" height="480px"></canvas>
         </div>
     `;
 }

@@ -30,7 +30,7 @@ class World {
 
 
     run() {
-        setInterval(() => {
+        setStoppableInterval(() => {
             this.checkCollisionsWithEnemy();
             this.checkCollisionOfBottleWithEnemy();
             this.checkCollisionWithCollectible(this.level.bottles, this.character, "collectedBottles", this.bottleStatusBar, this.character.bottle_sound);
@@ -102,15 +102,11 @@ class World {
     checkIfEndbossAlive(enemy) {
         if (enemy instanceof Endboss) {
             setTimeout(() => {
-                this.gameIsOver();
+                stopGame();
             }, 2500);
         } else {
             return;
         }
-    }
-
-    gameIsOver() {
-        document.getElementById('endScreen').classList.remove('dNone');
     }
 
     breakingGlassSound() {

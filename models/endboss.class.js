@@ -3,7 +3,6 @@ class Endboss extends MovableObject {
     width = 250;
     y = 50;
     energy = 15;
-    world;
     speed = 6;
     offset = {
         left: 15,
@@ -65,10 +64,10 @@ class Endboss extends MovableObject {
 
     animate() {
         const moveInterval = setInterval(() => {
-            if ((2500 - this.world.character.x) < 800 && this.x > this.world.character.x && this.positionEnd && gameStarted) {
+            if ((2500 - world.character.x) < 800 && this.x > world.character.x && this.positionEnd && gameStarted) {
                 this.moveLeft();
                 this.otherDirection = false;
-            } else if ((2500 - this.world.character.x) > 800 && this.x < 2500 && this.positionEnd && gameStarted) {
+            } else if ((2500 - world.character.x) > 800 && this.x < 2500 && this.positionEnd && gameStarted) {
                 this.moveRight();
                 this.otherDirection = true;
             }
@@ -79,7 +78,7 @@ class Endboss extends MovableObject {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (!this.positionEnd) {
                 this.playAnimation(this.IMAGES_ALERT);
-            } else if (this.world.character.isHurt()) {
+            } else if (world.character.isHurt()) {
                 this.playAnimation(this.IMAGES_ATTACK)
             } else if (this.energy == 0) {
                 this.endBossDead(moveInterval);
@@ -91,7 +90,7 @@ class Endboss extends MovableObject {
     }
 
     startEndBoss() {
-        if ((2500 - this.world.character.x) < 700) {
+        if ((2500 - world.character.x) < 700) {
             setTimeout(() => {
                 this.positionEnd = true;
             }, 2500);

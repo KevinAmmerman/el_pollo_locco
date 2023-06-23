@@ -69,7 +69,6 @@ class Character extends MovableObject {
         top: 110,
         bottom: 10
     }
-    world;
     walking_sound = new Audio('audio/running.mp3');
     jump_sound = new Audio('audio/jump.mp3');
     throw_sound = new Audio('audio/throw.mp3');
@@ -96,24 +95,24 @@ class Character extends MovableObject {
     animate() {
         setStoppableInterval(() => {
             this.walking_sound.pause();
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && gameStarted) {
+            if (keyboard.RIGHT && this.x < world.level.level_end_x && gameStarted) {
                 this.moveRight();
                 this.otherDirection = false;
                 this.walking_sound.play();
             }
-            if (this.world.keyboard.LEFT && this.x > -600 && gameStarted) {
+            if (keyboard.LEFT && this.x > -600 && gameStarted) {
                 this.moveLeft();
                 this.otherDirection = true;
                 this.walking_sound.play();
             }
-            if (this.world.keyboard.UP && !this.isAboveGround() && gameStarted) {
+            if (keyboard.UP && !this.isAboveGround() && gameStarted) {
                 this.jump();
                 this.jump_sound.play();
             }
-            if (this.world.keyboard.UP || this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.SPACE) {
+            if (keyboard.UP || keyboard.RIGHT || keyboard.LEFT || keyboard.SPACE) {
                 this.resetTimer();
             }
-            this.world.camera_x = -this.x +60;
+            world.camera_x = -this.x +60;
         }, 1000 / 60);
 
         setStoppableInterval(() => {
@@ -126,7 +125,7 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
-            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+            } else if (keyboard.RIGHT || keyboard.LEFT) {
                 this.playAnimation(this.IMAGES_WALKING);
             } else if(this.startTime <= 0) {
                 this.playAnimation(this.IMAGES_IDLE_LONG);

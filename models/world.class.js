@@ -18,14 +18,7 @@ class World {
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.draw();
-        this.setWorld();
         this.run();
-    }
-
-
-    setWorld() {
-        this.character.world = this;
-        this.level.enemies[3].world = this;
     }
 
 
@@ -36,6 +29,7 @@ class World {
             this.checkCollisionWithCollectible(this.level.bottles, this.character, "collectedBottles", this.bottleStatusBar, this.character.bottle_sound);
             this.checkCollisionWithCollectible(this.level.coins, this.character, "collectedCoins", this.coinStatusBar, this.character.coin_sound);
             this.throwBottle();
+            this.checkForEndOfGame();
             this.bottleStatusBar.setPercentage(this.bottleStatusBar.percentage);
             if (this.throwCooldown > 0) {
                 this.throwCooldown -= 100;
@@ -44,7 +38,7 @@ class World {
     }
 
     throwBottle() {
-        if (this.keyboard.D && this.character.collectedBottles > 0 && this.throwCooldown <= 0 && gameStarted) {
+        if (keyboard.D && this.character.collectedBottles > 0 && this.throwCooldown <= 0 && gameStarted) {
             let bottle = new ThrowableObject(this.character.x + 40, this.character.y + 100);
             this.throwableObject.push(bottle);
             this.character.collectedBottles--;
@@ -88,7 +82,6 @@ class World {
                         if (enemy.energy == 0) {
                             this.deleteEnemy(enemy);
                             this.chickenSound(enemy);
-                            this.checkIfEndbossAlive(enemy)
                         }
                     } else if (!bottle.isCollidingOld(enemy) && !bottle.isAboveGround()) {
                         this.breakingGlassSound();
@@ -99,14 +92,15 @@ class World {
         }
     }
 
-    checkIfEndbossAlive(enemy) {
-        if (enemy instanceof Endboss) {
-            setTimeout(() => {
-                stopGame();
-            }, 2500);
-        } else {
-            return;
-        }
+
+    checkForEndOfGame() {
+        if (!this.checkIfEndboss() || this.character.energy == 0) {
+            setTimeout(() => stopGame(), 1000);
+        } 
+    }
+
+    checkIfEndboss() {
+        return this.level.enemies.some(enemy => enemy instanceof Endboss);
     }
 
     breakingGlassSound() {
@@ -120,16 +114,12 @@ class World {
 
 
     deleteBottle(bottle) {
-        setTimeout(() => {
-            this.throwableObject.splice(this.throwableObject.indexOf(bottle));
-        }, 200);
+        setTimeout(() => this.throwableObject.splice(this.throwableObject.indexOf(bottle)), 200);
     }
 
 
     deleteEnemy(enemy) {
-        setTimeout(() => {
-            this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1);
-        }, 1500);
+        setTimeout(() => this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1), 1500);
     }
 
 

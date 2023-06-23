@@ -254,7 +254,7 @@ body {
     position: relative;
     width: 720px;
     height: 480px;
-    animation: fadeIn 1000ms ease-out;
+    animation: fadeIn 1500ms ease-out;
 }
 
 canvas {

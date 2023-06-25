@@ -7,6 +7,7 @@ let percent = 0;
 let gameStarted = false;
 let soundMuted = false;
 let intervalIds = [];
+let fullScreenEnabled = false;
 
 
 async function loadGame(newStart) {
@@ -17,14 +18,17 @@ async function loadGame(newStart) {
     init();
 }
 
+
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
 }
 
+
 async function generateHTML() {
     document.getElementById('gameScreen').innerHTML = createHtmlForGame();
 }
+
 
 function startGame() {
     fadeOut('starScreen');
@@ -60,6 +64,7 @@ function stopGame() {
     document.getElementById('endScreen').classList.remove('dNone');
 }
 
+
 function resetGame() {
     canvas = null;
     world = null;
@@ -80,6 +85,7 @@ function setupTouchListeners() {
     attachTouchListenersToButton('jumpKey', 'UP');
     attachTouchListenersToButton('throwKey', 'D');
 }
+
 
 function attachTouchListenersToButton(buttonId, keyboardKey) {
     const buttonElement = document.getElementById(buttonId);

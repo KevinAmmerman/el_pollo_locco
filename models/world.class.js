@@ -37,6 +37,7 @@ class World {
         }, 100);
     }
 
+
     throwBottle() {
         if (keyboard.D && this.character.collectedBottles > 0 && this.throwCooldown <= 0 && gameStarted) {
             let bottle = new ThrowableObject(this.character.x + 40, this.character.y + 100);
@@ -69,6 +70,7 @@ class World {
         });
     }
 
+
     checkCollisionOfBottleWithEnemy() {
         if (this.throwableObject.length > 0) {
             this.level.enemies.forEach(enemy => {
@@ -94,14 +96,25 @@ class World {
 
 
     checkForEndOfGame() {
-        if (!this.checkIfEndboss() || this.character.energy == 0) {
-            setTimeout(() => stopGame(), 1000);
+        if (!this.checkIfEndboss()) {
+            setTimeout(() => {
+                stopGame();
+                this.character.win_sound.play();
+            }, 1000);
         } 
+        if (this.character.energy == 0) {
+            setTimeout(() => {
+                stopGame()
+                this.character.gameOver_sound.play();
+            }, 1000);
+        }
     }
+
 
     checkIfEndboss() {
         return this.level.enemies.some(enemy => enemy instanceof Endboss);
     }
+
 
     breakingGlassSound() {
         this.character.breaking_glass_sound.play();

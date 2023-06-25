@@ -260,6 +260,8 @@ body {
 canvas {
     background-color: black;
     position: absolute;
+    height: 100%;
+    width: 100%;
 }
 
 #ingameControl {
@@ -296,6 +298,10 @@ canvas {
 
 #pauseBtn {
     background-image: url(./img/control/pause.png);
+}
+
+#fullScreenBtn {
+    background-image: url(./img/control/fullscreen.png);
 }
 
 #infoIngameContainer {

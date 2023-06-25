@@ -33,6 +33,7 @@ function createHtmlForGame() {
                 <button class="ingameControlBtn" id="infoIngameBtn"
                     onclick="toggleInfo('infoIngameContainer')"></button>
                 <button class="ingameControlBtn" id="volumeBtn" onclick="muteSound()"></button>
+                <button class="ingameControlBtn" id="fullScreenBtn" onclick="toggleFullscreen()"></button>
             </div>
             <div id="infoIngameContainer" class="dNone infoWindowStyle" onclick="toggleInfo('infoIngameContainer')">
                 <div id="gameInfo" onclick="doNotClose(event)">

@@ -12,6 +12,8 @@ class World {
     camera_x = 0;
     throwCooldown = 0;
     throwDelay = 1500;
+    gameMusic_sound = new Audio('audio/gameMusic.mp3');
+    endBossFight_sound = new Audio('audio/endboss_fight.mp3');
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -104,7 +106,7 @@ class World {
         } 
         if (this.character.energy == 0) {
             setTimeout(() => {
-                stopGame()
+                stopGame();
                 this.character.gameOver_sound.play();
             }, 1000);
         }
@@ -132,7 +134,7 @@ class World {
 
 
     deleteEnemy(enemy) {
-        setTimeout(() => this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1), 1500);
+        setTimeout(() => this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1), 2000);
     }
 
 

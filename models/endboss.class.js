@@ -91,6 +91,7 @@ class Endboss extends MovableObject {
 
     startEndBoss() {
         if ((2500 - world.character.x) < 700) {
+            setMusic('endBossFight_sound');
             setTimeout(() => {
                 this.positionEnd = true;
             }, 2500);

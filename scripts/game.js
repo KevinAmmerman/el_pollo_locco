@@ -41,6 +41,7 @@ function startGame() {
             fadeIn('canvasContainer');
             toggleDisplayNone('canvasContainer', REMOVE);
             gameStarted = true;
+            setMusic('gameMusic_sound');
             setDelay(() => toggleDisplayNone('loadingScreen', ADD), LONG_DELAY - SHORT_DELAY);
         }, SHORT_DELAY);
     }, LONG_DELAY);
@@ -62,8 +63,17 @@ function pauseGame() {
 function stopGame() {
     intervalIds.forEach(clearInterval);
     document.getElementById('endScreen').classList.remove('dNone');
+    setMusic();
 }
 
+function setMusic(music) {
+    let sounds = [world.gameMusic_sound, world.endBossFight_sound, world.character.walking_sound];
+    sounds.forEach(sound => sound.pause());
+    if (music) {
+        world[music].volume = 0.3;
+        world[music].play();
+    }
+}
 
 function resetGame() {
     canvas = null;

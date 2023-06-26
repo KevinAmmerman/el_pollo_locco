@@ -17,9 +17,9 @@ class Chicken extends MovableObject {
     IMAGE_DEAD = 'img/3_enemies_chicken/chicken_normal/2_dead/dead.png'
     chicken_sound = new Audio('audio/chicken.mp3');
     
-    constructor() {
+    constructor(x) {
         super().loadImage('img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
-        this.x = 400 + Math.random() * 1800; // gives out a random x position for each chicken
+        this.x = x + Math.random() * 1800; // gives out a random x position for each chicken
         this.speed = 0.15 + Math.random() * 1; // gives out a random speed for each chicken
         this.loadImages(this.IMAGES_WALKING); // loads the image pathes into an JSON
         this.animate(); 

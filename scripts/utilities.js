@@ -38,7 +38,7 @@ function toggleInfo(id) {
 function muteSound() {
     let button = document.getElementById('volumeBtn');
     soundMuted = !soundMuted;
-    let objects = [world.character, ...world.level.enemies];
+    let objects = [world.character, ...world.level.enemies, world];
     objects.forEach(obj => {
         for (let key in obj) {
             if (key.toLowerCase().includes('sound')) {

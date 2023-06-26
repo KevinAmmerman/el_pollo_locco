@@ -10,8 +10,6 @@ class Cloud extends MovableObject {
     }
 
     anitmate() {
-        setStoppableInterval(() => {
-            this.moveLeft();
-        }, 1000 / 60);
+        setStoppableInterval(() => this.moveLeft(), 1000 / 60);
     }
 }

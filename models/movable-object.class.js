@@ -32,9 +32,7 @@ class MovableObject extends DrawableObject {
 
 
     hit(character) {
-        if (character) {
-            this.energy -= 5
-        }
+        if (character) this.energy -= 5;
         this.lastHit = new Date().getTime();
     }
 

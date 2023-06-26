@@ -10,11 +10,6 @@ class DrawableObject {
     loadImage(path) {
         imagesToLoad++;
         this.img = new Image();
-        this.img.onload = function() {
-            imageLoaded++;
-            percent = (imageLoaded / imagesToLoad) * 100;
-            // console.log(`${percent} loaded`);
-        }
         this.img.src = path;
     }
 

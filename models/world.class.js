@@ -144,9 +144,7 @@ class World {
                 collectibles.splice(index, 1);
                 character[countPropertyName]++;
                 statusBar.setPercentage(character[countPropertyName]);
-                if (sound) {
-                    sound.play();
-                }
+                if (sound) sound.play();
             }
         });
     }
@@ -187,16 +185,10 @@ class World {
 
 
     addToMap(mo) {
-        if (mo.otherDirection) {
-            this.mirrowImage(mo);
-        }
-
+        if (mo.otherDirection) this.mirrowImage(mo);
         mo.draw(this.ctx);
         mo.drawFrame(this.ctx);
-
-        if (mo.otherDirection) {
-            this.mirrowImageReset(mo);
-        }
+        if (mo.otherDirection) this.mirrowImageReset(mo);
     }
 
 

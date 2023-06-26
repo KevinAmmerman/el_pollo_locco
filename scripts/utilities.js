@@ -4,17 +4,27 @@ const LONG_DELAY = 2000;
 const ADD = 'add';
 const REMOVE = 'remove';
 
-
+/**
+ * Fades in an element by adding the 'fadeIn' class to it.
+ * @param {string} id - The ID of the element to fade in.
+ */
 function fadeIn(id) {
     document.getElementById(id).classList.add('fadeIn');
 }
 
-
+/**
+ * Fades out an element by adding the 'fadeOut' class to it.
+ * @param {string} id - The ID of the element to fade out.
+ */
 function fadeOut(id) {
     document.getElementById(id).classList.add('fadeOut');
 }
 
-
+/**
+ * Toggles the 'dNone' class on an element to control its display.
+ * @param {string} id - The ID of the element.
+ * @param {string} actionType - The action type to perform ('add' or 'remove').
+ */
 function toggleDisplayNone(id, actionType) {
     if (actionType == 'add') {
         document.getElementById(id).classList.add('dNone');
@@ -23,18 +33,27 @@ function toggleDisplayNone(id, actionType) {
     }
 }
 
-
+/**
+ * Sets a delay before executing a function.
+ * @param {function} fn - The function to execute after the delay.
+ * @param {number} time - The delay time in milliseconds.
+ */
 function setDelay(fn, time) {
     setTimeout(fn, time);
 }
 
-
+/**
+ * Toggles the 'dNone' and 'fadeIn' classes on an element to control its visibility.
+ * @param {string} id - The ID of the element.
+ */
 function toggleInfo(id) {
     document.getElementById(id).classList.toggle('dNone');
     document.getElementById(id).classList.toggle('fadeIn');
 }
 
-
+/**
+ * Mutes or unmutes the game sounds and updates the volume button appearance.
+ */
 function muteSound() {
     let button = document.getElementById('volumeBtn');
     soundMuted = !soundMuted;
@@ -49,18 +68,28 @@ function muteSound() {
     });
 }
 
-
+/**
+ * Sets a stoppable interval by executing a function repeatedly at a specified time interval.
+ * @param {function} fn - The function to execute at each interval.
+ * @param {number} time - The interval time in milliseconds.
+ */
 function setStoppableInterval(fn, time) {
     let id = setInterval(fn, time);
     intervalIds.push(id);
 }
 
 
+/**
+ * Prevents an event from propagating further.
+ * @param {Event} event - The event to prevent from propagating.
+ */
 function doNotClose(event) {
     event.stopPropagation();
 }
 
-
+/**
+ * Toggles fullscreen mode for the game screen.
+ */
 function toggleFullscreen() {
     fullScreenEnabled = !fullScreenEnabled;
     let element = document.getElementById('gameScreen');
@@ -74,7 +103,10 @@ function toggleFullscreen() {
     }
 }
 
-
+/**
+ * Enters fullscreen mode for an element.
+ * @param {HTMLElement} element - The element to enter fullscreen mode.
+ */
 function enterFullscreen(element) {
     if (element.requestFullscreen) {
         element.requestFullscreen();
@@ -85,7 +117,9 @@ function enterFullscreen(element) {
     }
 }
 
-
+/**
+ * Exits fullscreen mode.
+ */
 function exitFullscreen() {
     if (document.exitFullscreen) {
         document.exitFullscreen();

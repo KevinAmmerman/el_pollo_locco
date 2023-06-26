@@ -9,7 +9,11 @@ let soundMuted = false;
 let intervalIds = [];
 let fullScreenEnabled = false;
 
-
+/**
+ * Loads the game and initializes various components.
+ * @param {boolean} newStart - Indicates whether it is a new start of the game.
+ * @returns {Promise<void>}
+ */
 async function loadGame(newStart) {
     if (newStart) resetGame();
     await generateHTML();
@@ -18,18 +22,25 @@ async function loadGame(newStart) {
     init();
 }
 
-
+/**
+ * Initializes the game by creating the canvas and setting up the game world.
+ */
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
 }
 
-
+/**
+ * Generates HTML content for the game screen.
+ * @returns {Promise<void>}
+ */
 async function generateHTML() {
     document.getElementById('gameScreen').innerHTML = createHtmlForGame();
 }
 
-
+/**
+ * Starts the game by fading out the start screen, displaying the loading screen, and initiating the game setup.
+ */
 function startGame() {
     fadeOut('starScreen');
     fadeIn('loadingScreen');
@@ -47,7 +58,9 @@ function startGame() {
     }, LONG_DELAY);
 }
 
-
+/**
+ * Pauses or resumes the game based on the current game state.
+ */
 function pauseGame() {
     let button = document.getElementById('pauseBtn');
     if (gameStarted) {
@@ -59,13 +72,19 @@ function pauseGame() {
     }
 }
 
-
+/**
+ * Stops the game by clearing interval IDs, displaying the end screen, and stopping any playing music.
+ */
 function stopGame() {
     intervalIds.forEach(clearInterval);
     document.getElementById('endScreen').classList.remove('dNone');
     setMusic();
 }
 
+/**
+ * Sets the music to be played in the game.
+ * @param {string} music - The name of the music file to be played.
+ */
 function setMusic(music) {
     let sounds = [world.gameMusic_sound, world.endBossFight_sound, world.character.walking_sound];
     sounds.forEach(sound => sound.pause());
@@ -75,6 +94,9 @@ function setMusic(music) {
     }
 }
 
+/**
+ * Resets the game state.
+ */
 function resetGame() {
     canvas = null;
     world = null;
@@ -85,7 +107,9 @@ function resetGame() {
 
 // MOBILE CONTROL ELEMENTS
 
-
+/**
+ * Sets up touch event listeners for mobile controls.
+ */
 function setupTouchListeners() {
     document.getElementById('canvas').addEventListener('touchstart', (e) => {
         e.preventDefault();
@@ -96,7 +120,11 @@ function setupTouchListeners() {
     attachTouchListenersToButton('throwKey', 'D');
 }
 
-
+/**
+ * Attaches touch event listeners to a button element.
+ * @param {string} buttonId - The ID of the button element.
+ * @param {string} keyboardKey - The corresponding keyboard key.
+ */
 function attachTouchListenersToButton(buttonId, keyboardKey) {
     const buttonElement = document.getElementById(buttonId);
     buttonElement.addEventListener('touchstart', (e) => {
@@ -111,6 +139,10 @@ function attachTouchListenersToButton(buttonId, keyboardKey) {
 
 // KEYBOARD LISTENER
 
+/**
+ * Listens for keydown events and updates the keyboard state accordingly.
+ * @param {Event} e - The keydown event.
+ */
 window.addEventListener('keydown', (e) => {
     if (e.keyCode == 38) {
         keyboard.UP = true;

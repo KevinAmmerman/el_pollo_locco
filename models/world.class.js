@@ -6,6 +6,7 @@ class World {
     coinStatusBar = new CoinStatusBar();
     endbossStatusBar = new EndbossStatusBar();
     throwableObject = [];
+    gamePaused = false;
     ctx;
     canvas;
     keyboard;
@@ -14,6 +15,8 @@ class World {
     throwDelay = 1500;
     gameMusic_sound = new Audio('audio/gameMusic.mp3');
     endBossFight_sound = new Audio('audio/endboss_fight.mp3');
+    endbossFight = false;
+    characterImmortal = false;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -41,7 +44,7 @@ class World {
 
 
     throwBottle() {
-        if (keyboard.D && this.character.collectedBottles > 0 && this.throwCooldown <= 0 && gameStarted) {
+        if (keyboard.D && this.character.collectedBottles > 0 && this.throwCooldown <= 0 && !this.gamePaused && gameStarted) {
             let bottle = new ThrowableObject(this.character.x + 40, this.character.y + 100);
             this.throwableObject.push(bottle);
             this.character.collectedBottles--;
@@ -64,10 +67,11 @@ class World {
                     this.chickenSound(enemy);
                 }
             }
-            if (this.character.isCollidingOld(enemy) && !this.character.isAboveGround() && this.character.energy > 0 && enemy.energy > 0) {
+            if (this.character.isCollidingOld(enemy) && !this.character.isAboveGround() && this.character.energy > 0 && enemy.energy > 0 && !this.characterImmortal) {
                 this.character.hit(true);
                 this.character.hurt_sound.play();
                 this.statusBar.setPercentage(this.character.energy);
+                this.setImmortalTimer();
             }
         });
     }
@@ -112,6 +116,10 @@ class World {
         }
     }
 
+    setImmortalTimer() {
+        this.characterImmortal = true;
+        setTimeout(() => this.characterImmortal = false, 150);
+    }
 
     checkIfEndboss() {
         return this.level.enemies.some(enemy => enemy instanceof Endboss);

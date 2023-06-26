@@ -61,13 +61,18 @@ class Endboss extends MovableObject {
     }
 
     animate() {
-        const moveInterval = setInterval(() => this.movingEndboss(), 1000 / 60);
-        setStoppableInterval(() => this.animateEndboss(moveInterval), 200);
+        const moveInterval = setInterval(() => {
+            if(!world.gamePaused) this.movingEndboss()
+        }, 1000 / 60);
+        setStoppableInterval(() => {
+            if(!world.gamePaused) this.animateEndboss(moveInterval)
+        }, 200);
     }
 
     startEndBoss() {
         if (this.canEndbossStart()) {
             setMusic('endBossFight_sound');
+            world.endbossFight = true;
             setTimeout(() => this.positionEnd = true, 2500);
         }
     }

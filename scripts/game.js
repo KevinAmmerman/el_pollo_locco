@@ -62,14 +62,19 @@ function startGame() {
  * Pauses or resumes the game based on the current game state.
  */
 function pauseGame() {
-    let button = document.getElementById('pauseBtn');
-    if (gameStarted) {
-        gameStarted = false;
-        button.style.backgroundImage = "url('img/control/play-buttton.png')";
+    if (!world.gamePaused) {
+        togglePause(true, '', 'img/control/play-buttton.png');
     } else {
-        gameStarted = true;
-        button.style.backgroundImage = "url('img/control/pause.png')";
+        togglePause(false, this.CheckForMusic(), 'img/control/pause.png')
     }
+}
+
+
+function togglePause(pause, sound, imgPath) {
+    let button = document.getElementById('pauseBtn');
+    world.gamePaused = pause;
+    setMusic(sound);
+    button.style.backgroundImage = `url(${imgPath})`;
 }
 
 /**
@@ -91,6 +96,15 @@ function setMusic(music) {
     if (music) {
         world[music].volume = 0.3;
         world[music].play();
+    }
+}
+
+
+function CheckForMusic() {
+    if (world.endbossFight) {
+        return 'endBossFight_sound';
+    } else {
+        return 'gameMusic_sound';
     }
 }
 

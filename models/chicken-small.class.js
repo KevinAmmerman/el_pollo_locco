@@ -29,11 +29,11 @@ class ChickenSmall extends MovableObject {
 
 
     animate() {
-        const moveInterval = setStoppableInterval(() => {
-            if (!world.gamePaused && gameStarted) this.moveLeft();
+        const moveInterval = setInterval(() => {
+            if (!world.gamePaused && gameStarted && !world.isGameOver) this.moveLeft();
         }, 1000 / 60);
-        const animateInterval = setStoppableInterval(() => {
-            if (!world.gamePaused) {
+        const animateInterval = setInterval(() => {
+            if (!world.gamePaused && !world.isGameOver) {
                 this.playAnimation(this.IMAGES_WALKING)
             }
         }, 200);

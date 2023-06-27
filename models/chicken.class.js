@@ -27,12 +27,12 @@ class Chicken extends MovableObject {
 
     
     animate()  {
-        const moveInterval = setStoppableInterval(() => {
-            if (!world.gamePaused && gameStarted) this.moveLeft();
+        const moveInterval = setInterval(() => {
+            if (!world.gamePaused && gameStarted && !world.isGameOver) this.moveLeft();
         }, 1000 / 60);
-        const animateInterval = setStoppableInterval(() => {
-            if (!world.gamePaused) {
-                this.playAnimation(this.IMAGES_WALKING)
+        const animateInterval = setInterval(() => {
+            if (!world.gamePaused && !world.isGameOver) {
+                this.playAnimation(this.IMAGES_WALKING);
             }
         }, 200);
         setStoppableInterval(() => this.enemyKill(this.energy, moveInterval, animateInterval, this.IMAGE_DEAD), 200);

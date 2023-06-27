@@ -117,6 +117,7 @@ class Character extends MovableObject {
             this.startTime -= 100;
         if (this.isDead()) {
             this.playAnimation(this.IMAGES_DEAD);
+            this.isDeadImg();
         } else if (this.isHurt()) {
             this.playAnimation(this.IMAGES_HURT);
         } else if (this.checkIfCharIsJumping()) {
@@ -181,5 +182,9 @@ class Character extends MovableObject {
 
     checkIfCharIsIdle() {
         return !world.gamePaused;
+    }
+
+    isDeadImg() {
+        setTimeout(() => this.loadImage('img/2_character_pepe/5_dead/D-57.png'), 1000);
     }
 }

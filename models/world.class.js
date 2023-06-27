@@ -17,6 +17,7 @@ class World {
     endBossFight_sound = new Audio('audio/endboss_fight.mp3');
     endbossFight = false;
     characterImmortal = false;
+    isGameOver = false;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -102,18 +103,16 @@ class World {
 
 
     checkForEndOfGame() {
-        if (!this.checkIfEndboss()) {
-            setTimeout(() => {
-                stopGame();
-                this.character.win_sound.play();
-            }, 1000);
-        } 
-        if (this.character.energy == 0) {
-            setTimeout(() => {
-                stopGame();
-                this.character.gameOver_sound.play();
-            }, 1000);
-        }
+        if (!this.checkIfEndboss()) this.gameOver('win_sound');
+        if (this.character.energy == 0) this.gameOver('gameOver_sound');
+    }
+
+    gameOver(sound) {
+        setTimeout(() => {
+            stopGame();
+            this.character[sound].play();
+            this.isGameOver = true;
+        }, 1000);
     }
 
     setImmortalTimer() {

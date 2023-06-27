@@ -43,12 +43,17 @@ function setDelay(fn, time) {
 }
 
 /**
- * Toggles the 'dNone' and 'fadeIn' classes on an element to control its visibility.
+ * Toggles the visibility of an element and applies fade-in animation.
  * @param {string} id - The ID of the element.
  */
 function toggleInfo(id) {
     document.getElementById(id).classList.toggle('dNone');
     document.getElementById(id).classList.toggle('fadeIn');
+    if (id.toLowerCase().includes('info')) {
+        document.getElementById(id).innerHTML = createHtmlForInfo(id);
+    } else {
+        document.getElementById(id).innerHTML = createHtmlForLicense(id);
+    }
 }
 
 /**

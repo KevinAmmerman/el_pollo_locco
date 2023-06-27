@@ -20,7 +20,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-image: url(./background.JPG);
+    background-image: url(./img/background.JPG);
     background-size: cover;
     overflow-y: hidden;
 }
@@ -129,7 +129,7 @@ body {
 
 .linkWindow {
     width: 550px;
-    height: 100px;
+    height: auto;
     padding: 20px;
     background-color: #FF9601;
     display: flex;

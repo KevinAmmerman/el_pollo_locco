@@ -69,7 +69,12 @@ function pauseGame() {
     }
 }
 
-
+/**
+ * Toggles the pause state of the game and updates the pause button appearance.
+ * @param {boolean} pause - Indicates whether the game should be paused.
+ * @param {string} sound - The name of the music sound to play or stop.
+ * @param {string} imgPath - The path to the image used for the pause button.
+ */
 function togglePause(pause, sound, imgPath) {
     let button = document.getElementById('pauseBtn');
     world.gamePaused = pause;
@@ -99,7 +104,10 @@ function setMusic(music) {
     }
 }
 
-
+/**
+ * Checks for the appropriate music sound based on the game state.
+ * @returns {string} - The name of the music sound to play.
+ */
 function CheckForMusic() {
     if (world.endbossFight) {
         return 'endBossFight_sound';

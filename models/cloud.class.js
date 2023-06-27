@@ -11,9 +11,7 @@ class Cloud extends MovableObject {
 
     anitmate() {
         setStoppableInterval(() => {
-            if (!world.gamePaused) {
-                this.moveLeft()
-            }
+            if (!world.gamePaused) this.moveLeft()
         }, 1000 / 60);
     }
 }

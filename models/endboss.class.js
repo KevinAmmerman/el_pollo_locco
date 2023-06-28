@@ -2,7 +2,7 @@ class Endboss extends MovableObject {
     height = 400;
     width = 250;
     y = 50;
-    energy = 15;
+    energy = 100;
     speed = 6;
     offset = {
         left: 15,
@@ -96,7 +96,7 @@ class Endboss extends MovableObject {
             this.playAnimation(this.IMAGES_ALERT);
         } else if (world.character.isHurt()) {
             this.playAnimation(this.IMAGES_ATTACK)
-        } else if (this.energy == 0) {
+        } else if (this.energy <= 0) {
             this.endBossDead(mI);
         } else {
             this.playAnimation(this.IMAGES_WALKING);

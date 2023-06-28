@@ -27,6 +27,28 @@ class DrawableObject {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 
+    setPercentage(percentage) {
+        this.percentage = percentage;
+        let path = this.IMAGES[this.resolvePercentage()];
+        this.img = this.imageCache[path];
+    }
+
+    resolvePercentage() {
+        if (this.percentage === 100) {
+            return 5;
+        } else if(this.percentage >= 70) {
+            return 4;
+        } else if(this.percentage >= 50) {
+            return 3;
+        } else if(this.percentage >= 30) {
+            return 2;
+        } else if(this.percentage >= 10) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
     // drawFrame(ctx) {
     //     if (this instanceof Character || this instanceof Chicken || this instanceof ChickenSmall || this instanceof Endboss || this instanceof ThrowableObject) {
     //         ctx.beginPath();

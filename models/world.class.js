@@ -18,6 +18,7 @@ class World {
     endbossFight = false;
     characterImmortal = false;
     isGameOver = false;
+    oneItem = 10;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -46,8 +47,8 @@ class World {
         if (keyboard.D && this.character.collectedBottles > 0 && this.throwCooldown <= 0 && !this.gamePaused && gameStarted) {
             let bottle = new ThrowableObject(this.character.x + 40, this.character.y + 100);
             this.throwableObject.push(bottle);
-            this.character.collectedBottles--;
-            this.bottleStatusBar.percentage--;
+            this.character.collectedBottles = this.character.collectedBottles - this.oneItem;
+            this.bottleStatusBar.percentage = this.bottleStatusBar.percentage - this.oneItem;
             this.character.throw_sound.play();
             this.throwCooldown = this.throwDelay;
         }
@@ -89,7 +90,7 @@ class World {
         enemy.hit();
         this.endbossStatusBar.decreaseEnergyOfEndbossStatusBar(enemy);
         this.character.jump();
-        if (enemy.energy == 0) {
+        if (enemy.energy <= 0) {
             this.deleteEnemy(enemy);
             this.chickenSound(enemy);
         }
@@ -111,7 +112,7 @@ class World {
     }
 
     handleBottleHitEnemy(bottle, enemy) {
-        enemy.energy--;
+        enemy.energy = enemy.energy - 5;
         this.breakingGlassSound();
         this.deleteBottle(bottle);
         enemy.hit();
@@ -119,7 +120,7 @@ class World {
     }
 
     isEnemyDead(enemy) {
-        return enemy.energy == 0;
+        return enemy.energy <= 0;
     }
 
     enemyDies(enemy) {
@@ -190,10 +191,12 @@ class World {
     }
 
     collectItem(collectibles, index, character, countPropertyName, statusBar, sound) {
-        collectibles.splice(index, 1);
-        character[countPropertyName]++;
-        statusBar.setPercentage(character[countPropertyName]);
-        if (sound) sound.play();
+        if (character[countPropertyName] < 100) {
+            collectibles.splice(index, 1);
+            character[countPropertyName] = character[countPropertyName] + this.oneItem;
+            statusBar.setPercentage(character[countPropertyName]);
+            if (sound) sound.play();
+        }
     }
 
 

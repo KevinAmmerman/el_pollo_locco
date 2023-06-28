@@ -81,7 +81,7 @@ class MovableObject extends DrawableObject {
     }
 
     enemyKill(energy, mI, aI, image) {
-        if (energy == 0) {
+        if (energy <= 0) {
             clearInterval(mI);
             clearInterval(aI);
             this.loadImage(image);

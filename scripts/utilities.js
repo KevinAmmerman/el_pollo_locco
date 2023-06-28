@@ -74,6 +74,22 @@ function muteSound() {
 }
 
 /**
+ * Performs pre-sound settings by muting or unmuting sounds and updating the volume button appearance.
+ */
+function preSoundSetting() {
+    let button = document.getElementById('volumeBtn');
+    let objects = [world.character, ...world.level.enemies, world];
+    objects.forEach(obj => {
+        for (let key in obj) {
+            if (key.toLowerCase().includes('sound')) {
+                obj[key].muted = soundMuted;
+                button.style.backgroundImage = `url('img/control/volume${soundMuted ? "-mute" : ""}.png')`;
+            }
+        }
+    });
+}
+
+/**
  * Sets a stoppable interval by executing a function repeatedly at a specified time interval.
  * @param {function} fn - The function to execute at each interval.
  * @param {number} time - The interval time in milliseconds.
@@ -131,4 +147,12 @@ function exitFullscreen() {
     } else if (document.webkitExitFullscreen) {
         document.webkitExitFullscreen();
     }
+}
+
+function saveSettings() {
+    localStorage.setItem('sound', soundMuted);
+}
+
+function loadSettings() {
+    soundMuted = JSON.parse(localStorage.getItem('sound'));
 }

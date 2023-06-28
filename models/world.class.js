@@ -234,7 +234,7 @@ class World {
     addToMap(mo) {
         if (mo.otherDirection) this.mirrowImage(mo);
         mo.draw(this.ctx);
-        mo.drawFrame(this.ctx);
+        // mo.drawFrame(this.ctx);
         if (mo.otherDirection) this.mirrowImageReset(mo);
     }
 

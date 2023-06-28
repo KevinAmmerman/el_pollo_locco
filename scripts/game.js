@@ -5,7 +5,7 @@ let imagesToLoad = 0;
 let imageLoaded = 0;
 let percent = 0;
 let gameStarted = false;
-let soundMuted = false;
+let soundMuted;
 let intervalIds = [];
 let fullScreenEnabled = false;
 
@@ -15,11 +15,13 @@ let fullScreenEnabled = false;
  * @returns {Promise<void>}
  */
 async function loadGame(newStart) {
+    loadSettings();
     if (newStart) resetGame();
     await generateHTML();
     setupTouchListeners();
     initLevel();
     init();
+    preSoundSetting();
 }
 
 /**
@@ -89,6 +91,7 @@ function stopGame() {
     intervalIds.forEach(clearInterval);
     document.getElementById('endScreen').classList.remove('dNone');
     setMusic();
+    saveSettings();
 }
 
 /**
@@ -123,7 +126,6 @@ function resetGame() {
     canvas = null;
     world = null;
     gameStarted = false;
-    soundMuted = false;
 }
 
 

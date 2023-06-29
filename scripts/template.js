@@ -50,7 +50,11 @@ function createHtmlForInfo(id) {
             </div>
             <div class="controlContainer">
                 <img class="controllerImg" src="./img/control/key-d-of-a-keyboard.png" alt="">
-                <span>throw bottle</span>
+                <span>Power throw</span>
+            </div>
+            <div class="controlContainer">
+                <img class="controllerImg" src="./img/control/keyboard-key-f.png" alt="">
+                <span>short throw</span>
             </div>
         </div>
     `;
@@ -73,6 +77,10 @@ function createHtmlForLicense(id) {
                 <li>
                     <a class="attributeLinkStyle" href="https://www.flaticon.com/free-icons/fullscreen"
                         title="fullscreen icons">Fullscreen icons created by Those Icons - Flaticon</a>
+                </li>
+                <li>
+                    <a class="attributeLinkStyle" href="https://www.flaticon.com/free-icons/keypad" 
+                        title="keypad icons">Keypad icons created by Freepik - Flaticon</a>
                 </li>
             </ul>
         </div>

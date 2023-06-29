@@ -60,6 +60,7 @@ class Endboss extends MovableObject {
         setTimeout(() => this.animate(), 5000);
     }
 
+
     animate() {
         const moveInterval = setInterval(() => {
             if(!world.gamePaused) this.movingEndboss()
@@ -69,6 +70,7 @@ class Endboss extends MovableObject {
         }, 200);
     }
 
+
     startEndBoss() {
         if (this.canEndbossStart()) {
             setMusic('endBossFight_sound');
@@ -77,10 +79,12 @@ class Endboss extends MovableObject {
         }
     }
 
+
     endBossDead(mI) {
         clearInterval(mI);
         this.playAnimation(this.IMAGES_DEAD);
     }
+
 
     movingEndboss() {
         if (this.isCharacterAtTheEnd())
@@ -88,6 +92,7 @@ class Endboss extends MovableObject {
         if (this.isCharacterNear())
             this.moveRight();
     }
+    
 
     animateEndboss(mI) {
         if (this.isHurt()) {
@@ -104,24 +109,29 @@ class Endboss extends MovableObject {
         this.startEndBoss();
     }
 
+
     isCharacterAtTheEnd() {
         return (2500 - world.character.x) < 800 && this.x > world.character.x && this.positionEnd && gameStarted;
     }
+
 
     moveLeft() {
         super.moveLeft();
         this.otherDirection = false;
     }
 
+
     isCharacterNear() {
         return (2500 - world.character.x) > 800 && this.x < 2500 && this.positionEnd && gameStarted;
     }
+
 
     moveRight() {
         super.moveRight();
         this.otherDirection = true;
     }
 
+    
     canEndbossStart() {
         return (2500 - world.character.x) < 700;
     }

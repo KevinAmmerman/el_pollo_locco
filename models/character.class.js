@@ -78,6 +78,8 @@ class Character extends MovableObject {
     coin_sound = new Audio('audio/coin.mp3');
     gameOver_sound = new Audio('audio/gameOver.mp3');
     win_sound = new Audio('audio/win.mp3');
+    test = 0;
+    test2 = 0;
 
     constructor() {
         super().loadImage('img/2_character_pepe/2_walk/W-21.png');
@@ -99,21 +101,23 @@ class Character extends MovableObject {
         setStoppableInterval(() => this.animateCharacter(), 100);
     }
 
+
     movingCharacter() {
         this.walking_sound.pause();
-        if (this.canMoveRight()) 
+        if (this.canMoveRight())
             this.moveRight();
-        if (this.canMoveLeft()) 
+        if (this.canMoveLeft())
             this.moveLeft();
-        if (this.canJump()) 
+        if (this.canJump())
             this.jump();
-        if (this.isCharacterActive()) 
+        if (this.isCharacterActive())
             this.resetTimer();
-        world.camera_x = -this.x + 60;
+        world.camera_x = -this.x + 100;
     }
 
+
     animateCharacter() {
-        if (this.startTime > 0) 
+        if (this.startTime > 0)
             this.startTime -= 100;
         if (this.isDead()) {
             this.playAnimation(this.IMAGES_DEAD);
@@ -131,59 +135,74 @@ class Character extends MovableObject {
         }
     }
 
+
     canMoveRight() {
         return !world.gamePaused && keyboard.RIGHT && this.x < world.level.level_end_x;
     }
 
+
     moveRight() {
+        this.test = 60;
         super.moveRight();
         this.otherDirection = false;
         this.walking_sound.play();
     }
 
+
     canMoveLeft() {
         return !world.gamePaused && keyboard.LEFT && this.x > -600;
     }
 
+
     moveLeft() {
+        this.test2 = 560;
         super.moveLeft();
         this.otherDirection = true;
         this.walking_sound.play();
     }
 
+
     canJump() {
         return !world.gamePaused && keyboard.UP && !this.isAboveGround();
     }
+
 
     jump() {
         super.jump();
         this.jump_sound.play();
     }
 
+
     isCharacterActive() {
         return keyboard.UP || keyboard.RIGHT || keyboard.LEFT || keyboard.SPACE;
     }
+
 
     characterIsWalking() {
         return keyboard.RIGHT && !world.gamePaused || keyboard.LEFT && !world.gamePaused;
     }
 
+
     resetTimer() {
         this.startTime = this.elapsedTime;
     }
+
 
     checkIfCharIsJumping() {
         return this.isAboveGround() && !world.gamePaused;
     }
 
+
     checkIfCharIsLongIdle() {
         return this.startTime <= 0 && !world.gamePaused;
     }
+
 
     checkIfCharIsIdle() {
         return !world.gamePaused;
     }
 
+    
     isDeadImg() {
         setTimeout(() => this.loadImage('img/2_character_pepe/5_dead/D-57.png'), 1000);
     }

@@ -149,10 +149,16 @@ function exitFullscreen() {
     }
 }
 
+/**
+ * Saves the sound settings to the local storage.
+ */
 function saveSettings() {
     localStorage.setItem('sound', soundMuted);
 }
 
+/**
+ * Loads the sound settings from the local storage.
+ */
 function loadSettings() {
     soundMuted = JSON.parse(localStorage.getItem('sound'));
 }

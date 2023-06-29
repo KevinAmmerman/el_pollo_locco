@@ -231,8 +231,9 @@ body {
 }
 
 #gameInfo {
-    width: 400px;
+    width: 450px;
     height: 100px;
+    padding: 10px;
     background-color: #FF9601;
     display: flex;
     justify-content: space-around;

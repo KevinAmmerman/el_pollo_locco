@@ -20,6 +20,7 @@ class EndbossStatusBar extends DrawableObject {
         this.setPercentage(100);
     }
 
+    
     decreaseEnergyOfEndbossStatusBar(enemy) {
         if (enemy instanceof Endboss) {
             this.setPercentage(enemy.energy);

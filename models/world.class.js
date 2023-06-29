@@ -10,7 +10,7 @@ class World {
     ctx;
     canvas;
     keyboard;
-    camera_x = 0;
+    camera_x = -60;
     throwCooldown = 0;
     throwDelay = 1500;
     gameMusic_sound = new Audio('audio/gameMusic.mp3');
@@ -44,14 +44,25 @@ class World {
 
 
     throwBottle() {
-        if (keyboard.D && this.character.collectedBottles > 0 && this.throwCooldown <= 0 && !this.gamePaused && gameStarted) {
-            let bottle = new ThrowableObject(this.character.x + 40, this.character.y + 100);
-            this.throwableObject.push(bottle);
-            this.character.collectedBottles = this.character.collectedBottles - this.oneItem;
-            this.bottleStatusBar.percentage = this.bottleStatusBar.percentage - this.oneItem;
-            this.character.throw_sound.play();
-            this.throwCooldown = this.throwDelay;
-        }
+        if (this.checkForThrowingBottle('D', !this.character.otherDirection)) this.throwObj(20);
+        if (this.checkForThrowingBottle('D', this.character.otherDirection)) this.throwObj(20);
+        if (this.checkForThrowingBottle('F', !this.character.otherDirection)) this.throwObj(8);
+        if (this.checkForThrowingBottle('F', this.character.otherDirection)) this.throwObj(8);
+    }
+
+
+    checkForThrowingBottle(key, direction) {
+        return keyboard[key] && this.character.collectedBottles > 0 && this.throwCooldown <= 0 && !this.gamePaused && gameStarted && direction;
+    }
+
+
+    throwObj(speed) {
+        let bottle = new ThrowableObject(this.character.x + 40, this.character.y + 100, this.character.otherDirection, speed);
+        this.throwableObject.push(bottle);
+        this.character.collectedBottles = this.character.collectedBottles - this.oneItem;
+        this.bottleStatusBar.percentage = this.bottleStatusBar.percentage - this.oneItem;
+        this.character.throw_sound.play();
+        this.throwCooldown = this.throwDelay;
     }
 
 
@@ -85,6 +96,7 @@ class World {
         return this.character.isCollidingOld(enemy) && this.character.isAboveGround() && enemy.energy > 0 && this.character.speedY < 0;
     }
 
+    
     characterHitsEnemy(enemy) {
         enemy.energy--;
         enemy.hit();
@@ -96,9 +108,11 @@ class World {
         }
     }
 
+
     isEnemyCollidingWithCharacter(enemy) {
         return this.character.isCollidingOld(enemy) && !this.character.isAboveGround() && this.character.energy > 0 && enemy.energy > 0 && !this.characterImmortal;
     }
+
 
     enemyHitsCharacter() {
         this.character.hit(true);
@@ -107,9 +121,11 @@ class World {
         this.setImmortalTimer();
     }
 
+
     isBottleHittingEnemy(bottle, enemy) {
         return bottle.isCollidingOld(enemy) && enemy.energy > 0;
     }
+
 
     handleBottleHitEnemy(bottle, enemy) {
         enemy.energy = enemy.energy - 5;
@@ -119,36 +135,44 @@ class World {
         this.endbossStatusBar.decreaseEnergyOfEndbossStatusBar(enemy);
     }
 
+
     isEnemyDead(enemy) {
         return enemy.energy <= 0;
     }
+
 
     enemyDies(enemy) {
         this.deleteEnemy(enemy);
         this.chickenSound(enemy);
     }
 
+
     deleteEnemy(enemy) {
         setTimeout(() => this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1), 2000);
     }
+
 
     chickenSound(enemy) {
         enemy.chicken_sound.play();
     }
 
+
     isBottleHittingGround(bottle, enemy) {
         return !bottle.isCollidingOld(enemy) && !bottle.isAboveGround();
     }
+
 
     bottleBreaking(bottle) {
         this.breakingGlassSound();
         this.deleteBottle(bottle);
     }
 
+
     checkForEndOfGame() {
         if (!this.checkIfEndboss()) this.gameOver('win_sound');
         if (this.character.energy == 0) this.gameOver('gameOver_sound');
     }
+
 
     gameOver(sound) {
         setTimeout(() => {
@@ -186,9 +210,11 @@ class World {
         });
     }
 
+
     isCharacterCollidingWithCollectable(collectible) {
         return this.character.isCollidingOld(collectible);
     }
+
 
     collectItem(collectibles, index, character, countPropertyName, statusBar, sound) {
         if (character[countPropertyName] < 100) {
@@ -237,7 +263,6 @@ class World {
     addToMap(mo) {
         if (mo.otherDirection) this.mirrowImage(mo);
         mo.draw(this.ctx);
-        // mo.drawFrame(this.ctx);
         if (mo.otherDirection) this.mirrowImageReset(mo);
     }
 

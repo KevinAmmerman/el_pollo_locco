@@ -345,12 +345,16 @@ canvas {
 
 .leftHand,
 .rightHand {
-    width: 100px;
+    width: 150px;
     display: flex;
     justify-content: space-between;
 }
 
-#throwKey {
+.rightHand {
+    width: 100px;
+}
+
+#throwKey, #shortThrowKey {
     background-image: url(./img/control/bottle.png);
 }
 

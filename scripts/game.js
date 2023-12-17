@@ -142,6 +142,7 @@ function setupTouchListeners() {
     attachTouchListenersToButton('rightKey', 'RIGHT');
     attachTouchListenersToButton('jumpKey', 'UP');
     attachTouchListenersToButton('throwKey', 'D');
+    attachTouchListenersToButton('shortThrowKey', 'F');
 }
 
 /**
@@ -168,50 +169,44 @@ function attachTouchListenersToButton(buttonId, keyboardKey) {
  * @param {Event} e - The keydown event.
  */
 window.addEventListener('keydown', (e) => {
-    if (e.keyCode == 38) {
+    if (e.key == 'ArrowUp') {
         keyboard.UP = true;
     }
-    if (e.keyCode == 40) {
+    if (e.key == 'ArrowDown') {
         keyboard.DOWN = true;
     }
-    if (e.keyCode == 39) {
+    if (e.key == 'ArrowRight') {
         keyboard.RIGHT = true;
     }
-    if (e.keyCode == 37) {
+    if (e.key == 'ArrowLeft') {
         keyboard.LEFT = true;
     }
-    if (e.keyCode == 32) {
-        keyboard.SPACE = true;
-    }
-    if (e.keyCode == 68) {
+    if (e.key == 'd') {
         keyboard.D = true;
     }
-    if (e.keyCode == 70) {
+    if (e.key == 'f') {
         keyboard.F = true;
     }
 });
 
 
 window.addEventListener('keyup', (e) => {
-    if (e.keyCode == 38) {
+    if (e.key == 'ArrowUp') {
         keyboard.UP = false;
     }
-    if (e.keyCode == 40) {
+    if (e.key == 'ArrowDown') {
         keyboard.DOWN = false;
     }
-    if (e.keyCode == 39) {
+    if (e.key == 'ArrowRight') {
         keyboard.RIGHT = false;
     }
-    if (e.keyCode == 37) {
+    if (e.key == 'ArrowLeft') {
         keyboard.LEFT = false;
     }
-    if (e.keyCode == 32) {
-        keyboard.SPACE = false;
-    }
-    if (e.keyCode == 68) {
+    if (e.key == 'd') {
         keyboard.D = false;
     }
-    if (e.keyCode == 70) {
+    if (e.key == 'f') {
         keyboard.F = false;
     }
 });

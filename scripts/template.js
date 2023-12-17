@@ -26,6 +26,7 @@ function createHtmlForGame() {
             <div id="ingameInfoContainer" class="dNone infoWindowStyle" onclick="toggleInfo('ingameInfoContainer')"></div>
             <div id="mobileControler">
                 <div class="leftHand">
+                    <button id="shortThrowKey" class="mobileBtn"></button>
                     <button id="jumpKey" class="mobileBtn"></button>
                     <button id="throwKey" class="mobileBtn"></button>
                 </div>
@@ -50,11 +51,11 @@ function createHtmlForInfo(id) {
             </div>
             <div class="controlContainer">
                 <img class="controllerImg" src="./img/control/key-d-of-a-keyboard.png" alt="">
-                <span>Power throw</span>
+                <span>Power throw/<br>right bottle</span>
             </div>
             <div class="controlContainer">
                 <img class="controllerImg" src="./img/control/keyboard-key-f.png" alt="">
-                <span>short throw</span>
+                <span>short throw/<br>left bottle</span>
             </div>
         </div>
     `;

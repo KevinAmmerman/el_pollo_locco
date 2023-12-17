@@ -50,12 +50,20 @@ class World {
         if (this.checkForThrowingBottle('F', this.character.otherDirection)) this.throwObj(8);
     }
 
-
+    /**
+     * Checks if conditions are met to throw a bottle.
+     * @param {string} key - The keyboard key to check for bottle throwing.
+     * @param {boolean} direction - The direction the character is facing.
+     * @returns {boolean} True if conditions are met to throw a bottle.
+     */
     checkForThrowingBottle(key, direction) {
         return keyboard[key] && this.character.collectedBottles > 0 && this.throwCooldown <= 0 && !this.gamePaused && gameStarted && direction;
     }
 
-
+    /**
+     * Creates a new throwable object (bottle) and adjusts game state accordingly.
+     * @param {number} speed - The speed at which the bottle is thrown.
+     */
     throwObj(speed) {
         let bottle = new ThrowableObject(this.character.x + 40, this.character.y + 100, this.character.otherDirection, speed);
         this.throwableObject.push(bottle);
@@ -65,7 +73,10 @@ class World {
         this.throwCooldown = this.throwDelay;
     }
 
-
+    /**
+     * Handles the logic when the character hits an enemy.
+     * @param {object} enemy - The enemy object that the character collides with.
+     */
     checkCollisionsWithEnemy() {
         this.level.enemies.forEach(enemy => {
             if (this.isCharacterCollidingWithEnemy(enemy)) this.characterHitsEnemy(enemy);
@@ -73,7 +84,9 @@ class World {
         });
     }
 
-
+    /**
+     * Manages the collision of a thrown bottle with an enemy.
+     */
     checkCollisionOfBottleWithEnemy() {
         if (this.throwableObject.length > 0) {
             this.level.enemies.forEach(enemy => {
@@ -91,12 +104,19 @@ class World {
         }
     }
 
-
+    /**
+     * Determines if the character is colliding with an enemy.
+     * @param {Object} enemy - The enemy object to check for collision.
+     * @returns {boolean} True if the character is colliding with the enemy.
+     */
     isCharacterCollidingWithEnemy(enemy) {
         return this.character.isCollidingOld(enemy) && this.character.isAboveGround() && enemy.energy > 0 && this.character.speedY < 0;
     }
 
-    
+    /**
+     * Handles the event when the character hits an enemy.
+     * @param {Object} enemy - The enemy that the character collides with.
+     */
     characterHitsEnemy(enemy) {
         enemy.energy--;
         enemy.hit();
@@ -108,7 +128,11 @@ class World {
         }
     }
 
-
+    /**
+     * Checks if an enemy is colliding with the character.
+     * @param {Object} enemy - The enemy object to check for collision.
+     * @returns {boolean} True if the enemy is colliding with the character.
+     */
     isEnemyCollidingWithCharacter(enemy) {
         return this.character.isCollidingOld(enemy) && !this.character.isAboveGround() && this.character.energy > 0 && enemy.energy > 0 && !this.characterImmortal;
     }
@@ -121,12 +145,21 @@ class World {
         this.setImmortalTimer();
     }
 
-
+    /**
+     * Checks if a thrown bottle is hitting an enemy.
+     * @param {Object} bottle - The thrown bottle object.
+     * @param {Object} enemy - The enemy object to check for collision.
+     * @returns {boolean} True if the bottle is hitting the enemy.
+     */
     isBottleHittingEnemy(bottle, enemy) {
         return bottle.isCollidingOld(enemy) && enemy.energy > 0;
     }
 
-
+    /**
+     * Manages the interaction when a thrown bottle hits an enemy.
+     * @param {Object} bottle - The bottle that hits the enemy.
+     * @param {Object} enemy - The enemy that is hit by the bottle.
+     */
     handleBottleHitEnemy(bottle, enemy) {
         enemy.energy = enemy.energy - 5;
         this.breakingGlassSound();
@@ -156,7 +189,12 @@ class World {
         enemy.chicken_sound.play();
     }
 
-
+    /**
+     * Checks if a thrown bottle is hitting the ground.
+     * @param {Object} bottle - The thrown bottle object.
+     * @param {Object} enemy - The enemy object for reference.
+     * @returns {boolean} True if the bottle is hitting the ground.
+     */
     isBottleHittingGround(bottle, enemy) {
         return !bottle.isCollidingOld(enemy) && !bottle.isAboveGround();
     }
@@ -201,7 +239,14 @@ class World {
         setTimeout(() => this.throwableObject.splice(this.throwableObject.indexOf(bottle)), 200);
     }
 
-
+    /**
+     * Checks for collisions between the character and collectible items.
+     * @param {Array} collectibles - An array of collectible objects.
+     * @param {Object} character - The game's main character.
+     * @param {string} countPropertyName - The property name to increment on collision.
+     * @param {Object} statusBar - The status bar to update on collision.
+     * @param {Object} sound - The sound effect to play on collision.
+     */
     checkCollisionWithCollectible(collectibles, character, countPropertyName, statusBar, sound) {
         collectibles.forEach((collectible, index) => {
             if (this.isCharacterCollidingWithCollectable(collectible)) {
@@ -215,7 +260,15 @@ class World {
         return this.character.isCollidingOld(collectible);
     }
 
-
+    /**
+     * Handles the collection of an item.
+     * @param {Array} collectibles - An array of collectible objects.
+     * @param {number} index - The index of the collectible in the array.
+     * @param {Object} character - The game's main character.
+     * @param {string} countPropertyName - The property name to increment on collection.
+     * @param {Object} statusBar - The status bar to update on collection.
+     * @param {Object} sound - The sound effect to play on collection.
+     */
     collectItem(collectibles, index, character, countPropertyName, statusBar, sound) {
         if (character[countPropertyName] < 100) {
             collectibles.splice(index, 1);

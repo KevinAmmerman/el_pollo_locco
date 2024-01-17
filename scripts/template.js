@@ -7,7 +7,7 @@ function createHtmlForGame() {
         <div id="starScreen" class="">
             <div class="btnContainer">
                 <button onclick="startGame()" class="btnStyle">Start</button>
-                <button onclick="toggleInfo('gameInfoContainer')" class="btnStyle">Info</button>
+                <button onclick="toggleInfo('gameInfoContainer')" class="btnStyle">Control</button>
             </div>
             <div id="gameInfoContainer" class="dNone infoWindowStyle" onclick="toggleInfo('gameInfoContainer')"></div>
         </div>
